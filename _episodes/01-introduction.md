@@ -7,8 +7,8 @@ questions:
 - What are the tools that I will be using?  
 objectives:
 - List the learning objectives of this tutorial  
-- Present the data sets that we will use  
-- Present the strategy that we will use to analyse this data sets  
+- Present the data sets used in this tutorial  
+- Present the strategy used to analyse the data sets  
 keypoints:
 - ""
 ---
