@@ -11,10 +11,14 @@ keypoints:
 ---
 
 ## Table of Contents
-1. [Install and load the required packages](#install-and-load-the-required-packages)
-2. [Import the data in R](#import-the-data-in-r)
-3. [Create a phyloseq object](#create-a-phyloseq-object)
-4. [Global exploration of the data sets](#global-exploration-of-the-data-sets)
+1. [Install and load the required packages  ](#install-and-load-the-required-packages)
+2. [Import the data in R  ](#import-the-data-in-r)
+3. [Create a phyloseq object  ](#create-a-phyloseq-object)
+4. [Global exploration of the data sets  ](#global-exploration-of-the-data-sets)
+5. [OTU table (based on the raw data: *data_otu* table or *OTU* from *data_phylo* object)](#otu-table-based-on-the-raw-data-data_otu-table-or-otu-from-data_phylo-object)
+6. [Sample metadata table ](#sample-metadata-table)
+7. [OTU data properties: sparsity ](#otu-data-properties-sparsity)
+
 
 ## Install and load the required packages  
 

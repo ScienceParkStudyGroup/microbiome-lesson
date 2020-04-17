@@ -10,6 +10,15 @@ objectives:
 keypoints:
 - ""
 ---
+
+## Table of contents
+- [Overview  ](#overview)
+- [Objectives  ](#objectives)
+- [Learning objectives  ](#learning-objectives)
+- [Context, scientific question and data sets  ](#context-scientific-question-and-data-sets)
+- [Strategy  ](#strategy)
+
+
 ## Overview  
 
 This tutorial will introduce you to Microbiota data analysis and guide you through the analyses, visualization and interpretation of microbial community composition and diversity.  
