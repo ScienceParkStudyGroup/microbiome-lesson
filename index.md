@@ -9,7 +9,7 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 
 This tutorial will introduce you to Microbiota data analysis and guide you through the analyses, visualization and interpretation of microbial community composition and diversity. This page contains important information on how to use this tutorial.      
   
-When working through the tutorial, you will encounter questions and exercises. Questions are intended to guide you through the analyses and help you identify some of the challenges of microbiota data analyses. Exercices are intended to aplly what you have learnt before. You can find answers by using the show/hide button of Solution part.  
+When working through the tutorial, you will encounter questions and exercises. Questions are intended to guide you through the analyses and help you identify some of the challenges of microbiota data analyses. Exercices are intended to aplly what you have learnt before. You can find answers by using the show/hide button of Solution section.  
 
 Before you begin, be sure you are all set up (see below).
 
