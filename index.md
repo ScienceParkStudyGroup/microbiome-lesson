@@ -19,14 +19,14 @@ Before you begin, be sure you are all set up (see below).
 >
 > 1. Read the workshop [Code of Conduct](https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html) to make sure this workshop stays welcoming for everybody.
 > 2. Get comfortable: if you're not in a physical workshop, be set up with two screens if possible. You will be following along in RStudio on your own computer while also following this tutorial on your own.
-> 3. Install R, RStudio and other packages following instructions in [the **Setup** section](https://carpentries-incubator.github.io/open-science-with-r/setup.html).
+> 3. Install R, RStudio and other packages following instructions in [the **Setup** section](https://scienceparkstudygroup.github.io/microbiome-lesson/setup.html).
 {: .prereq}
 
 
 {% include links.md %}
 
 
-----
+
 
 
 
