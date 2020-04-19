@@ -19,27 +19,18 @@ keypoints:
 ---
 
 ## Table of Contents
-<<<<<<< HEAD:_episodes/02-data-exploration-and-properties.md
 1. [Install and load the required packages  ](#install-and-load-the-required-packages)
 2. [Import the data in R  ](#import-the-data-in-r)
 3. [Create a phyloseq object  ](#create-a-phyloseq-object)
 4. [Global exploration of the data sets  ](#global-exploration-of-the-data-sets)
-5. [OTU table (based on the raw data: *data_otu* table or *OTU* from *data_phylo* object)](#otu-table-based-on-the-raw-data-data_otu-table-or-otu-from-data_phylo-object)
-6. [Sample metadata table ](#sample-metadata-table)
-7. [OTU data properties: sparsity ](#otu-data-properties-sparsity)
-
-=======
-1. [Install and load the required packages](#install-and-load-the-required-packages)
-2. [Import the data in R](#import-the-data-in-r)
-3. [Create a phyloseq object](#create-a-phyloseq-object)
-4. [Global exploration of the data sets](#global-exploration-of-the-data-sets)
-5. [OTU data properties: sparsity](#otu-data-properties-sparsity)
->>>>>>> 996fb4deaa077dea642eb57ca247b2939e03e3b4:_episodes/02.data-exploration-and-properties.md
-
+5. [OTU data properties ](#otu-data-properties)
+  
+  
 ## 1. Install and load the required packages  
 
 ~~~
-# install.packages("Vegan")     # only if you need to install the package
+# install the following packages only if you need to
+# install.packages("Vegan")
 # install.packages("phyloseq")
 # install.packages("tidyverse")
 # install.packages("patchwork")
@@ -156,8 +147,6 @@ This table represents the metadata information on the different samples.
 > > `nb_factors`
 > {: .solution}
 {: .challenge}  
-
-
   
   
 Check how many samples per treatment do we have.  
@@ -182,12 +171,14 @@ In the following part of this tutorial, we will discuss some problematic issues 
   
   
 
-## 5. OTU data properties: sparsity 
+## 5. OTU data properties 
 Based on the raw data: `data_otu` table  
   
 Microbiome data sets are usually sparse.  
   
-### 5.1. Number of zeros and percentage of zeros in the OTU table  
+### 5.1. Sparsity  
+  
+#### 5.1.1. Number of zeros and percentage of zeros in the OTU table  
   
 ~~~
 sum(data_otu == 0)
@@ -218,7 +209,7 @@ sum(data_otu == 0) / (nb_var * nb_samples) * 100
 > Here, the percentage of zeros is relatively high. In order to be able to apply specific statistical approaches later, we should think about filtering the OTU data.  
 {: .callout}   
    
-### 5.2. Counts frequency  
+#### 5.1.2. Counts frequency  
   
 Visualize the count frequency in the OTU table using a histogram.  
 ~~~
@@ -247,7 +238,7 @@ hist(as.matrix(data_otu),
 {: .callout}   
   
   
-### 5.3. Minimum of counts per OTU for all the samples  
+#### 5.1.3. Minimum of counts per OTU for all the samples  
   
 > ## Question
 > What is the minimum number of counts per OTU for all the samples in this data set?
@@ -266,7 +257,7 @@ hist(as.matrix(data_otu),
 {: .callout} 
  
   
-### 5.4. Non-zero values per OTU  
+#### 5.1.4. Non-zero values per OTU  
   
 In order to check how the different OTU/ASV are shared bewteen samples, plot the number of non-zero values for each OTU  
 ~~~
@@ -299,7 +290,10 @@ plot(non_zero, xlab = "OTU", ylab = "Frequency", main = "Number of non zero valu
 {: .callout}
   
   
+   
+### 5.2. Sequencing depth  
   
+#### 5.2.1. 
   
 
 
