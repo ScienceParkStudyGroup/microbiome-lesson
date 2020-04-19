@@ -14,10 +14,10 @@ keypoints:
 ---
 
 ## Table of contents
-- [1. Overview  ](#overview)
-- [2. Learning objectives  ](#learning-objectives)
-- [3. Context, scientific question and data sets  ](#context-scientific-question-and-data-sets)
-- [4. Strategy  ](#strategy)
+- 1. [Overview  ](#overview)
+- 2. [Learning objectives  ](#learning-objectives)
+- 3. [Context, scientific question and data sets  ](#context-scientific-question-and-data-sets)
+- 4. [Strategy  ](#strategy)
 
 
 ## 1. Overview  
