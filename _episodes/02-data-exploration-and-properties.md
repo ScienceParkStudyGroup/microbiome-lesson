@@ -18,12 +18,12 @@ keypoints:
 - ""
 ---
 
-## Table of Contents
-1. [Install and load the required packages  ](#install-and-load-the-required-packages)
-2. [Import the data in R  ](#import-the-data-in-r)
-3. [Create a phyloseq object  ](#create-a-phyloseq-object)
-4. [Global exploration of the data sets  ](#global-exploration-of-the-data-sets)
-5. [OTU data properties ](#otu-data-properties)
+## Table of Contents  
+- [1. Install and load the required packages  ](#1-install-and-load-the-required-packages)
+- [2. Import the data in R  ](#2-import-the-data-in-r)
+- [3. Create a phyloseq object  ](#3-create-a-phyloseq-object)
+- [4. Global exploration of the data sets  ](#4-global-exploration-of-the-data-sets)
+- [5. OTU data properties ](#5-otu-data-properties)
   
   
 ## 1. Install and load the required packages  
@@ -47,8 +47,9 @@ library(FSA)
 library(rcompanion)
 ~~~
 {: .language-r}
-
-
+  
+  
+  
 ## 2. Import the data in R  
 
 ~~~
@@ -65,7 +66,9 @@ The OTU table (`data_otu` or `data_loue_16S_nonnorm.txt`) is the occurrence tabl
 The sample metadata table (`data_grp` or `data_loue_16S_nonnorm_grp.txt`) represents the metadata information on the different samples, in this case, where (*site*) and when (*month*) the samples were harvested.    
 
 The taxonomy table (`data_taxo` or `data_loue_16S_nonnorm_taxo.txt`) represents the assignment for the different OTU at domain, phylum, class, order, family, genus and species levels. Usually, microbial ecologists use phylum level (or class level for Proteobacteria) to describe the global bacterial communities. Then, they usually use OTU, ASV (Amplicon Sequence Variant) or genus level to check which bacteria are differentially occuring in the different treatments.  
-
+  
+  
+  
 ## 3. Create a phyloseq object  
   
 Microbial ecologists usually use the vegan and phyloseq packages to analyse the occurrence table. Such as `biom` format, `phyloseq` format support encapsulation of core study data (occurrence table data and sample/observation metadata) in a single file. From the three tables `data_otu`, `data_grp` and `data_taxo` we will create a phyloseq object `data_phylo`.  
@@ -82,7 +85,9 @@ data_phylo <- phyloseq(OTU, TAX, SAM) # create the phyloseq object including occ
 data_phylo # print information about the phyloseq object
 ~~~~
 {: .language-r}
-
+  
+  
+  
 ## 4. Global exploration of the data sets  
   
 ### 4.1. OTU table  
@@ -118,7 +123,8 @@ nb_var
 > ## Remark
 > If you want to use phyloseq, you can use `nsamples()` and `ntaxa()` functions, such as `nsamples(data_phylo)` and `ntaxa(data_phylo)`.  
 {: .callout}
-
+  
+  
 ### 4.2. Sample metadata table  
 Based on `data_grp` table or `SAM` from `data_phylo` object  
 This table represents the metadata information on the different samples.  
@@ -170,11 +176,12 @@ There are nine samples harvested or replicates (ignoring the month of harvest) f
 In the following part of this tutorial, we will discuss some problematic issues of these data that makes it necessary to use a specific strategy to deal with these data.  
   
   
-
+  
 ## 5. OTU data properties 
 Based on the raw data: `data_otu` table  
   
 Microbiome data sets are usually sparse.  
+  
   
 ### 5.1. Sparsity  
   
@@ -208,7 +215,8 @@ sum(data_otu == 0) / (nb_var * nb_samples) * 100
 > ## Remark 
 > Here, the percentage of zeros is relatively high. In order to be able to apply specific statistical approaches later, we should think about filtering the OTU data.  
 {: .callout}   
-   
+  
+  
 #### 5.1.2. Counts frequency  
   
 Visualize the count frequency in the OTU table using a histogram.  
@@ -254,8 +262,8 @@ hist(as.matrix(data_otu),
 > reminder, chimeric amplification products have been already removed in the bioinformatic analysis before generating the OTU 
 > table. Chimeras are hybrid products between multiple parent sequences that can be falsely interpreted as novel organisms, thus inflating apparent diversity.  
 > thus inflating apparent diversity.  
-{: .callout} 
- 
+{: .callout}  
+  
   
 #### 5.1.4. Non-zero values per OTU  
   
@@ -304,6 +312,7 @@ After extracting the DNA from each sample independently, the biologist measures 
 > {: .solution}
 {: .challenge}
   
+  
 #### 5.2.1. Rarefaction curve  
 Microbial ecologists explore sequencing depth though a rarefaction curve. The rarefaction curve shows how many new OTU are observed when we obtain new reads for a given sample. If the sequencing depth is enough, we should observe a plateau, meaning that even if we sequence new reads they will belong to OTUs already observed. In other word, all the diversity present in a sample is already described and we have sequenced the community deeply enough. This analysis should be execute on the raw data.  
   
@@ -334,6 +343,7 @@ legend(15000, 3900, leg.txt, lty=c(2,1), lwd=1.3, box.lwd=0.6, cex=1)
 > > 2. You can also see with this plot that the total number of reads per sample vary between samples, so it will be difficult to compare samples.  
 > {: .solution}
 {: .challenge}
+  
   
 #### 5.2.2. Library size  
 We will now plot the total number of counts per sample.  
