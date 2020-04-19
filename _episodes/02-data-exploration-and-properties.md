@@ -54,9 +54,7 @@ library(rcompanion)
 
 ~~~
 data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
-
 data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header = TRUE)
-
 data_taxo <- read.table("data_loue_16S_nonnorm_taxo.txt", header = TRUE)
 ~~~
 {: .language-r}
@@ -75,13 +73,9 @@ Microbial ecologists usually use the vegan and phyloseq packages to analyse the 
   
 ~~~
 OTU = otu_table(as.matrix(data_otu), taxa_are_rows = FALSE) # create the occurrence table object in phyloseq format
-
 SAM = sample_data(data_grp, errorIfNULL = TRUE) # create the sample metadata object in phyloseq format
-
 TAX = tax_table(as.matrix(data_taxo)) # create the observation metadata object (OTU taxonomy) in phyloseq format
-
 data_phylo <- phyloseq(OTU, TAX, SAM) # create the phyloseq object including occurrence table data and sample/observation metadata
-
 data_phylo # print information about the phyloseq object
 ~~~~
 {: .language-r}
@@ -91,8 +85,7 @@ data_phylo # print information about the phyloseq object
 ## 4. Global exploration of the data sets  
   
 ### 4.1. OTU table  
-Based on raw data: `data_otu` table or `OTU` from `data_phylo` object  
-The OTU table is the occurrence table that contains counts.  
+Based on raw data: `data_otu` table or `OTU` from `data_phylo` object. The OTU table is the occurrence table that contains counts.  
   
 Check how the data look like showing the first 5 rows and the first 6 columns.  
 ~~~
@@ -106,6 +99,7 @@ The OTU table has samples in rows and variables (OTU) in columns.
 > ## Remark
 > If you want to use phyloseq, you can do the same running `otu_table(data_phylo)[1:5, 1:6]` 
 {: .callout}
+  
   
   
 Check how many samples and variables are in the OTU table?  
@@ -126,16 +120,15 @@ nb_var
   
   
 ### 4.2. Sample metadata table  
-Based on `data_grp` table or `SAM` from `data_phylo` object  
-This table represents the metadata information on the different samples.  
+Based on `data_grp` table or `SAM` from `data_phylo` object. This table represents the metadata information on the different samples.  
 
 > ## Exercise
 >
 > How does the data look like if you show the first 6 rows using head function?   
 > 
 > > ## Solution
-> > `# The sample metadata table has samples in rows and factors in columns.`     
 > > `head(data_grp)`
+> > `# The sample metadata table has samples in rows and factors in columns.`     
 > {: .solution}
 {: .challenge}  
 
@@ -153,6 +146,7 @@ This table represents the metadata information on the different samples.
 > > `nb_factors`
 > {: .solution}
 {: .challenge}  
+  
   
   
 Check how many samples per treatment do we have.  
@@ -178,9 +172,7 @@ In the following part of this tutorial, we will discuss some problematic issues 
   
   
 ## 5. OTU data properties 
-Based on the raw data: `data_otu` table  
-  
-Microbiome data sets are usually sparse.  
+Based on the raw data: `data_otu` table. Microbiome data sets are usually sparse and have uneven library size.  
   
   
 ### 5.1. Sparsity  
@@ -217,6 +209,8 @@ sum(data_otu == 0) / (nb_var * nb_samples) * 100
 {: .callout}   
   
   
+  
+  
 #### 5.1.2. Counts frequency  
   
 Visualize the count frequency in the OTU table using a histogram.  
@@ -246,6 +240,8 @@ hist(as.matrix(data_otu),
 {: .callout}   
   
   
+  
+  
 #### 5.1.3. Minimum of counts per OTU for all the samples  
   
 > ## Question
@@ -263,6 +259,8 @@ hist(as.matrix(data_otu),
 > table. Chimeras are hybrid products between multiple parent sequences that can be falsely interpreted as novel organisms, thus inflating apparent diversity.  
 > thus inflating apparent diversity.  
 {: .callout}  
+  
+  
   
   
 #### 5.1.4. Non-zero values per OTU  
@@ -313,6 +311,8 @@ After extracting the DNA from each sample independently, the biologist measures 
 {: .challenge}
   
   
+  
+  
 #### 5.2.1. Rarefaction curve  
 Microbial ecologists explore sequencing depth though a rarefaction curve. The rarefaction curve shows how many new OTU are observed when we obtain new reads for a given sample. If the sequencing depth is enough, we should observe a plateau, meaning that even if we sequence new reads they will belong to OTUs already observed. In other word, all the diversity present in a sample is already described and we have sequenced the community deeply enough. This analysis should be execute on the raw data.  
   
@@ -338,9 +338,9 @@ legend(15000, 3900, leg.txt, lty=c(2,1), lwd=1.3, box.lwd=0.6, cex=1)
 > ## Questions 
 > 1. How do you interpret this plot? Do you think that the sequencing depth was enough for this experiment?  
 > 2. Do you think it is possible to compare the samples using this data set?  
-> > ## Solutions:
-> > 1. You can see that none of the samples reach a plateau, so the sequencing depth was not enough, but we should not be so far from it. Our previous comparison between Richness and Chao1 give us the same interpretation.  
-> > 2. You can also see with this plot that the total number of reads per sample vary between samples, so it will be difficult to compare samples.  
+> > ## Solutions:  
+> > 1. You can see that none of the samples reach a plateau, so the sequencing depth was not enough, but we should not be so far from it. > > Our previous comparison between Richness and Chao1 give us the same interpretation.  
+> > 2. You can also see with this plot that the total number of reads per sample vary between samples, so it will be difficult to compare > > samples.  
 > {: .solution}
 {: .challenge}
   
@@ -361,9 +361,15 @@ max(sum_seq)
 > 2. Do you observe similar results on the filtered data set?  
 > 3. Do you think it is an issue to have variation in the library size?  
 > > ## Solutions:
-> > 1. We can see that there is differences in the library size for the different samples. The library size go from around 9000 reads to a bit more of 20000 reads (more than 2 fold change).  
-> > 2. If you lokk at the filtered data, you can see similar result, the filtering  does not change library size so much because you just removed few OTU that were rare.  
-> > 3. Of course if you want to compare samples to each other, it will be an issue to have different library sizes. For example, if you have a sample 1 with 1000 reads (500 reads for OTU1, 300 reads for OTU 2 and 200 reads for OTU 3) and a sample 2 with only 100 reads (50 reads for OTU1, 30 reads for OTU 2 and 20 reads for OTU 3). If you are comparing the two samples without correcting for the library size, you will say that sample 2 as 10 times less OTU 1, 2 and 3 than the sample 1, while it is just due to the difference in library size. Indeed, if you calculate the percentage, you will have 50% of OTU 1, 30% of OTU 2 and 20% of OTU 3 for both samples. So, it is important to normalize your data per sample.  
+> > 1. We can see that there is differences in the library size for the different samples. The library size go from around 9000 reads to a
+> > bit more of 20000 reads (more than 2 fold change).  
+> > 2. If you lokk at the filtered data, you can see similar result, the filtering  does not change library size so much because you just
+> > removed few OTU that were rare.  
+> > 3. Of course if you want to compare samples to each other, it will be an issue to have different library sizes. For example, if you 
+> > have a sample 1 with 1000 reads (500 reads for OTU1, 300 reads for OTU 2 and 200 reads for OTU 3) and a sample 2 with only 100 reads 
+> > (50 reads for OTU1, 30 reads for OTU 2 and 20 reads for OTU 3). If you are comparing the two samples without correcting for the 
+> > library size, you will say that sample 2 as 10 times less OTU 1, 2 and 3 than the sample 1, while it is just due to the difference in 
+> > library size. Indeed, if you calculate the percentage, you will have 50% of OTU 1, 30% of OTU 2 and 20% of OTU 3 for both samples. So, > > it is important to normalize your data per sample.  
 > {: .solution}
 {: .challenge}
   
