@@ -5,7 +5,7 @@ exercises: 0
 questions:
 - Which packages do I need for the analyses?  
 - How can I import my data in R?  
-- How the data sets look like?  
+- What the data sets look like?  
 - What are the properties for the occurrence table?  
 objectives:
 - Install and load the required packages in R  
@@ -13,6 +13,7 @@ objectives:
 - Create a phyloseq object  
 - Explore the data sets  
 - Assess sparsity of the occurrence table  
+- Assess the sequencing depth  
 keypoints:
 - ""
 ---
