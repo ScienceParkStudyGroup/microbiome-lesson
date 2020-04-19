@@ -14,14 +14,11 @@ keypoints:
 ---
 
 ## Table of contents
-- [Overview  ](#overview)
-- [Objectives  ](#objectives)
-- [Learning objectives  ](#learning-objectives)
-- [Context, scientific question and data sets  ](#context-scientific-question-and-data-sets)
-- [Strategy  ](#strategy)
+- [1. Overview  ](#overview)
+- [2. Learning objectives  ](#learning-objectives)
+- [3. Context, scientific question and data sets  ](#context-scientific-question-and-data-sets)
+- [4. Strategy  ](#strategy)
 
-
-## Overview  
 
 ## 1. Overview  
 This tutorial will introduce you to Microbiota data analysis and guide you through the analyses, visualization and interpretation of microbial community composition and diversity.  
@@ -46,7 +43,7 @@ Below are displayed a map of the sampling sites (from Zancarini et al. 2017) and
 
 <img src="../img/Cleron.jpg" alt="Cleron Loue river" style="width:50%">
 
-### 3.3. Datasets
+### 3.3. Datasets  
 
 A first bioinformatical analysis was required to create the occurence table based on the raw sequencing data given by the sequencing company. Usually, the `biom` format is used as an output format for this first analysis. The `biom` format has been developed to support encapsulation of core study data (occurence table data and sample/observation metadata) in a single file. Similar to the `biom` format, the `phyloseq` format also uses a single file containing the three tables. Microbial ecologists usually use Vegan and/or Phyloseq packages to analyse the occurence table.  
 
@@ -57,7 +54,7 @@ To limit the number of packages used in this tutorial, the data sets are not in 
   
 ## 4. Strategy  
 We want to assess if there is any difference between bacterial communities within biofilms harvested in the upper (*Cleron*) and in the downstream (*Parcey*) area of the Loue River and over time during the summer 2012 (*i.e.* *July*, *August* and *September*). We will follow the following strategy:  
-  - Explore the data sets and check data properties (such as sparsity).  
+  - Explore the data sets and check data properties (sparsity and sequencing depth).  
   - Define, calculate and interpret alpha-diversity (*i.e.* Richness, Choa1, Evenness and Shannon indices).  
   - Filter the data and normalize the data by sample (*i.e.* correction for library size).  
   - Explore the beta-diversity using Principal Covariates Analysis (PCoA) and perform statistical tests to test differences among treatments.  
