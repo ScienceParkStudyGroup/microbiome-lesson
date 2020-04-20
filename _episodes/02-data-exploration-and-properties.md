@@ -335,14 +335,13 @@ legend(15000, 3900, leg.txt, lty=c(2,1), lwd=1.3, box.lwd=0.6, cex=1)
 ~~~
 {: .language-r}
   
-> ## Questions 
+  
+> ## Question 
 > 1. How do you interpret this plot? Do you think that the sequencing depth was enough for this experiment?  
 > 2. Do you think it is possible to compare the samples using this data set?  
-> > ## Solutions:
-> > 1. You can see that none of the samples reach a plateau, so the sequencing depth was not enough, but we should not be so far from it.  
-> > Our previous comparison between Richness and Chao1 give us the same interpretation.  
-> > 2. You can also see with this plot that the total number of reads per sample vary between samples, so it will be difficult to compare  
-> > samples.  
+> > ## Solution:
+> > 1. You can see that none of the samples reach a plateau, so the sequencing depth was not enough, but we should not be so far from it. Our previous comparison between Richness and Chao1 give us the same interpretation.  
+> > 2. You can also see with this plot that the total number of reads per sample vary between samples, so it will be difficult to compare samples.  
 > {: .solution}
 {: .challenge}
   
