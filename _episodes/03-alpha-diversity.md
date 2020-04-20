@@ -3,19 +3,25 @@ title: "Alpha-diversity"
 teaching: 60
 exercises: 30
 questions:
-- What is Alpha-diversity?  
-- How can I calculate and plot Alpha-diversity?  
+- What is alpha-diversity?  
+- How can I calculate and plot alpha-diversity?  
 - How can I test differences among treatments?  
 objectives:
-- Define Alpha-diversity and the Alpha-diversity indices that we will use  
+- Define alpha-diversity and the alpha-diversity indices that we will use  
 - Calculate Richness, Chao1, Evenness and Shannon  
-- Visualize Alpha-diversity using ggplot2 for the diffrent treatments  
+- Visualize alpha-diversity using ggplot2 for the diffrent treatments  
 - Test statistical differences among treatments  
 keypoints:
 - ""
 ---
- 
- 
+  
+## Table of Contents  
+- [1. Definitions and important information  ](#1-definitions-and-important-information)
+- [2. Indices calculation  ](#2-indices-calculation)
+- [3. Visualization  ](#3-visualisation)
+- [4. Statistical analyses  ](#4-statistical-analyses)
+  
+  
 ## 1. Definitions and important information   
 Alpha-diversity represents diversity within an ecosystem or a sample, in other words, what is there and how much is there in term of species. However, it is not easy to define a species and we can calculate alpha-diversity at different taxonomic levels.  
 In this tutorial, we are looking at the OTU level (clustered at 97% similarity thresholds).  
@@ -161,28 +167,31 @@ cor(data_alphadiv[,c(4,5,9,10)])
 > {: .solution}
 {: .challenge}
 
-
-> ## Exercise 
-> Plot the samples according to their harvesting sites and time points. Interpret the new plot as you did before.  
-> > ## Solution
-> > **Richness plot.**   
-> > ~~~
-> > data_alphadiv_tidy %>%  
-> >   filter(alphadiv_index == "S.obs") %>%  
-> >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
-> >   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
-> >   ggplot(., aes(x=month, y=obs_values)) +  
-> >   geom_boxplot(aes(fill=month)) +  
-> >   geom_point() +  
-> >   facet_grid(. ~ site) +  
-> >   labs(y = "Richness", x="") +  
-> >   # x axis label reoriented for better readability  
-> >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
-> > ~~~
-> > {: .language-r} 
-
-> > **Chao1 plot.**   
-> > ~~~
+  
+We will now plot the samples according to their harvesting sites and time points at the same time.  
+  
+**Richness plot.**  
+~~~
+data_alphadiv_tidy %>%  
+  filter(alphadiv_index == "S.obs") %>%  
+  # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
+  mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
+  ggplot(., aes(x=month, y=obs_values)) +  
+  geom_boxplot(aes(fill=month)) +  
+  geom_point() +  
+  facet_grid(. ~ site) +  
+  labs(y = "Richness", x="") +  
+  # x axis label reoriented for better readability  
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+~~~
+{: .language-r} 
+  
+> ## Exercise
+> Plot the other three alpha-diversity indices and interpret the results.  
+> 
+> > ## Solution  
+> > Chao1 plot.
+> > ~~~~
 > > data_alphadiv_tidy %>%  
 > >   filter(alphadiv_index == "S.chao1") %>%  
 > >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
@@ -195,9 +204,9 @@ cor(data_alphadiv[,c(4,5,9,10)])
 > >   # x axis label reoriented for better readability  
 > >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 > > ~~~
-> > {: .language-r} 
-
-> > **Evenness plot.**
+> > {: .language-r}
+> > 
+> > Evenness plot.
 > > ~~~
 > > data_alphadiv_tidy %>%  
 > >   filter(alphadiv_index == "data_evenness") %>%  
@@ -211,9 +220,9 @@ cor(data_alphadiv[,c(4,5,9,10)])
 > >   # x axis label reoriented for better readability  
 > >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 > > ~~~
-> > {: .language-r}   
-
-> > **Shannon plot.**
+> > {: .language-r}
+> > 
+> > Shannon plot
 > > ~~~
 > > data_alphadiv_tidy %>%  
 > >   filter(alphadiv_index == "data_shannon") %>%  
@@ -230,6 +239,7 @@ cor(data_alphadiv[,c(4,5,9,10)])
 > > {: .language-r}
 > {: .solution}
 {: .challenge}
+  
   
 > ## Question
 > Do you think that there is any significant differences between the alpha-diversity of samples harvested in Cleron and Parcey? Between the three harvesting dates? Between each treatments? How could you test it?  
