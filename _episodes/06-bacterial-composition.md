@@ -3,9 +3,10 @@ title: "Bacterial community composition"
 teaching: 60
 exercises: 30
 questions:
-- ""
+- How bacterial community composition is usually represented?  
 objectives:
-- ""
+- Plot the global bacterial community composition using piechart  
+- Plot the bacterial community composition according to the different treatments using barplots  
 keypoints:
 - ""
 
