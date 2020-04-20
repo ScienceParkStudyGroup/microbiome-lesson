@@ -1,7 +1,7 @@
 ---
 title: "Bacterial community composition"
 teaching: 60
-exercises: 30
+exercises: 10
 questions:
 - How bacterial community composition is usually represented?  
 objectives:
