@@ -172,7 +172,7 @@ com_per_treatment_phylum %>%
   
 We can observe that in August at Parcey, it seems to have more unclassified bacteria. Moreover, we can observe more Bacteroidetes and Verrucomicrobia when the water is colder at Cleron and in July in Parcey. Finally, we can also observed more Deinococcus-Thermus at Cleron than at Parcey and in September and less Acidobacteria at Cleron than at Parcey.  
   
-> ## Exercice
+> ## Exercise
 > We usually also represent Proteobacteria at Class level. Please plot the Proteobacteria community for each treatment and interpret the plot.  
 > > ## Solution
 > > ~~~
