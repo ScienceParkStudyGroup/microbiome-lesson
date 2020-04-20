@@ -15,8 +15,8 @@ keypoints:
 ## Table of Contents  
 - [1. Overview  ](#1-overview)
 - [2. Data preparation  ](#2-data-preparation)
-- [3. Global composition for all the samples - piechart  ](#3-global-composition-for-all-the-samples--piechart)
-- [4. Global bacterial community composition for each treatment - Barplot  ](#4-global-bacterial-community-composition-for-each-treatment--barplot)
+- [3. Global composition for all the samples using piechart  ](#3-global-composition-for-all-the-samples-using-piechart)
+- [4. Global bacterial community composition for each treatment using barplot  ](#4-global-bacterial-community-composition-for-each-treatment-using-barplot)
   
   
 ## 1. Overview  
@@ -106,7 +106,7 @@ rm(data_otu_filt_rar_temp)
 {: .language-r}
   
   
-## 3. Global composition for all the samples - piechart  
+## 3. Global composition for all the samples using piechart  
   
 We will visualize here the global bacterial composition in the Loue River without taking into account the different treatments. 
 We already calculated the sum for all the samples for each OTU (see the [data preparation section](#data-preparation)). 
@@ -147,7 +147,7 @@ representing 68% of the total bacterial community.
 Within the Proteobacteria, 77% of the reads were identified as Alphaproteobacteria.  
   
   
-## 4. Global bacterial community composition for each treatment - Barplot  
+## 4. Global bacterial community composition for each treatment using barplot  
   
 We will visualize here the global bacterial composition in the Loue River for each treatment. We already calculated for each OTU the sum of counts for all the samples that belong to a same treatment. We will then pool the OTU that belong to the same Phylum.  
   
