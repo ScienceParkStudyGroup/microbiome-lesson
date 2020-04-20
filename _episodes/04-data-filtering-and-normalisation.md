@@ -35,22 +35,27 @@ data_otu_filt = data.frame(otu_table(data_phylo_filt)) # create a separated file
 ~~~
 {: .language-r}   
   
-**QUESTIONS:** How many zeros are present in the filtered OTU table? What is the percentage of zeros in the filtered OTU table? Plot the number of non zero values for each OTU (in the same way as for the nonfiltered data). Interpret these results.  
-**SOLUTIONS:**  
-~~~
-{: .language-r}{r}
-sum(data_otu_filt==0)
-sum(data_otu_filt==0)/(dim(data_otu_filt)[2]*dim(data_otu_filt)[1])*100
-hist(as.matrix(data_otu_filt), max(data_otu_filt), right=FALSE, las=1, xlab = "Occurrence value", ylab = "Frequency", main = "Occurrence frequency")
-min(colSums(data_otu_filt))
-non_zero<-0*1:dim(data_otu_filt)[2]
-for (i in 1:dim(data_otu_filt)[2]){
-  non_zero[i]<-sum(data_otu_filt[,i] != 0)
-  }
-plot(non_zero, xlab = "OTU", ylab = "Frequency", main="Number of non zero values", las=1)
-# You can see that we removed 3867 OTU, which were extremly rare and mostly found in only few samples. We deacresed the number and percentage of zeros in our data set by removing these OTU.
-~~~
-{: .language-r}
+> ## Questions
+> How many zeros are present in the filtered OTU table?  
+> What is the percentage of zeros in the filtered OTU table?  
+> Plot the number of non zero values for each OTU (in the same way as for the nonfiltered data).  
+> Interpret these results.  
+> > ## Solutions
+> > ~~~
+> > sum(data_otu_filt==0)
+> > sum(data_otu_filt==0)/(dim(data_otu_filt)[2]*dim(data_otu_filt)[1])*100
+> > hist(as.matrix(data_otu_filt), max(data_otu_filt), right=FALSE, las=1, xlab = "Occurrence value", ylab = "Frequency", main = "Occurrence frequency")
+> > min(colSums(data_otu_filt))
+> > non_zero<-0*1:dim(data_otu_filt)[2]
+> > for (i in 1:dim(data_otu_filt)[2]){
+> >   non_zero[i]<-sum(data_otu_filt[,i] != 0)
+> >   }
+> > plot(non_zero, xlab = "OTU", ylab = "Frequency", main="Number of non zero values", las=1)
+> > # You can see that we removed 3867 OTU, which were extremly rare and mostly found in only few samples. We deacresed the number and percentage of zeros in our data set by removing these OTU.
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}  
   
   
 ## 2. Normalization per sample  
@@ -76,10 +81,14 @@ data_phylo_filt_rar <- phyloseq(OTU_filt_rar, TAX, SAM) # create a phyloseq obje
 ~~~
 {: .language-r}
   
-**QUESTION:** What is the number of counts per sample for the rarfied data set?  
-**SOLUTIONS:** 7750
-
-~~~
-rowSums(data_otu_filt_rar)
-~~~
-{: .language-r}  
+> ## Questions
+> What is the number of counts per sample for the rarfied data set?  
+> > ## Solutions
+> > 7750  
+> > ~~~
+> > rowSums(data_otu_filt_rar)
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}  
+  
