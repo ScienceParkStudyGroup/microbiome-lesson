@@ -236,7 +236,7 @@ cor(data_alphadiv[,c(4,5,9,10)])
 {: .discussion}
   
   
-## Statistical analyses  
+## 4. Statistical analyses  
   
 You can use different statistical tests in order to test if there is any significant differences between treatments: parametric tests (t-test and ANOVA) or non-parametric tests (Mann-Whitney and Kruskal-Wallis). Before using parametric tests, you need to make sure that you can use them (*e.g.* normal distribution, homoscedasticity).    
 
