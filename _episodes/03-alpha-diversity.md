@@ -3,15 +3,20 @@ title: "Alpha-diversity"
 teaching: 60
 exercises: 30
 questions:
-- ""
+- What is Alpha-diversity?  
+- How can I calculate and plot Alpha-diversity?  
+- How can I test differences among treatments?  
 objectives:
-- ""
+- Define Alpha-diversity and the Alpha-diversity indices that we will use  
+- Calculate Richness, Chao1, Evenness and Shannon  
+- Visualize Alpha-diversity using ggplot2 for the diffrent treatments  
+- Test statistical differences among treatments  
 keypoints:
 - ""
 ---
  
  
-## Definitions and important information   
+## 1. Definitions and important information   
 Alpha-diversity represents diversity within an ecosystem or a sample, in other words, what is there and how much is there in term of species. However, it is not easy to define a species and we can calculate alpha-diversity at different taxonomic levels.  
 In this tutorial, we are looking at the OTU level (clustered at 97% similarity thresholds).  
   
@@ -21,12 +26,15 @@ Several alpha-diversity indices can be calculated. Within the most commonly used
 - Pielou’s evenness provides information about the equity in species abundance in each sample, in other words are some species dominating others or do all species have quite the same abundances  
 - Shannon index provides information about both richness and evenness  
   
-**REMARKS:** Alpha-diversity is calculated on the raw data, here *data_otu* or *data_phylo* if you are using phyloseq.  
+  
+> ## Remark 
+> Alpha-diversity is calculated on the raw data, here *data_otu* or *data_phylo* if you are using phyloseq.  
 It is important to not use filtered data because many richness estimates are modeled on singletons and doubletons in the occurrence table. So, you need to leave them in the dataset if you want a meaningful estimate.  
 Moreover, we usually not using normalized data because we want to assess the diversity on the raw data and we are not comparing samples to each other but only assessing diversity within each sample.  
+{: .callout}
   
   
-## Indices calculation  
+## 2. Indices calculation  
 ~~~
 data_richness <- estimateR(data_otu) # calculate richness and Chao1 using vegan package
 
@@ -44,15 +52,37 @@ rm(data_richness,
 
 We used here the R package vegan in order to calculate the different alpha-diversity indices.  
   
+Put the data in tidy format  
+~~~
+data_alphadiv_tidy <- data_alphadiv %>%
+  mutate(sample_id = rownames(data_alphadiv)) %>%
+  gather(key   = alphadiv_index,
+         value = obs_values,
+         -sample_id, -site, -month, -site_month)
+~~~
+{: .language-r}
   
-## Visualization  
+  
+## 3. Visualization  
   
 Plot the four alpha-diversity indices for both sites.  
 ~~~
-P1 <- ggplot(data_alphadiv, aes(x=site, y=S.obs)) + geom_boxplot(fill=c("blue","red")) + labs(title= 'Richness', x= ' ', y= '', tag = "A") + geom_point()
-P2 <- ggplot(data_alphadiv, aes(x=site, y=S.chao1)) + geom_boxplot(fill=c("blue","red")) + labs(title= 'Chao1', x= ' ', y= '', tag = "B") + geom_point()
-P3 <- ggplot(data_alphadiv, aes(x=site, y=data_evenness)) + geom_boxplot(fill=c("blue","red")) + labs(title= 'Eveness', x= ' ', y= '', tag = "C") + geom_point()
-P4 <- ggplot(data_alphadiv, aes(x=site, y=data_shannon)) + geom_boxplot(fill=c("blue","red")) + labs(title= 'Shannon', x= ' ', y= '', tag = "D") + geom_point()
+P1 <- ggplot(data_alphadiv, aes(x=site, y=S.obs)) +
+  geom_boxplot(fill=c("blue","red")) +
+  labs(title= 'Richness', x= ' ', y= '', tag = "A") +
+  geom_point()
+P2 <- ggplot(data_alphadiv, aes(x=site, y=S.chao1)) +
+  geom_boxplot(fill=c("blue","red")) +
+  labs(title= 'Chao1', x= ' ', y= '', tag = "B") +
+  geom_point()
+P3 <- ggplot(data_alphadiv, aes(x=site, y=data_evenness)) +
+  geom_boxplot(fill=c("blue","red")) +
+  labs(title= 'Eveness', x= ' ', y= '', tag = "C") +
+  geom_point()
+P4 <- ggplot(data_alphadiv, aes(x=site, y=data_shannon)) +
+  geom_boxplot(fill=c("blue","red")) +
+  labs(title= 'Shannon', x= ' ', y= '', tag = "D") +
+  geom_point()
 (P1 | P2) / (P3 | P4)
 ~~~
 {: .language-r}
@@ -137,48 +167,65 @@ cor(data_alphadiv[,c(4,5,9,10)])
 > > ## Solution
 > > **Richness plot.**   
 > > ~~~
-> > data_alphadiv %>%  
-> >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)    
-> >   mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September", "Parcey_July", "Parcey_August", "Parcey_September")) %>%    
-> > ggplot(aes(x = site_month, y = S.obs))       
-> >    + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))  
-> >    + labs(title = 'Richness', x = ' ', y = '')   
-> >    + geom_point()     
-> > # x axis label reoriented for better readability   
-> >    + theme(axis.text.x = element_text(angle = 45, hjust = 1))   
-> > data_alphadiv %>%   
-> > # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)      
-> > mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September", "Parcey_July", "Parcey_August", "Parcey_September")) %>%       
-> >  ggplot(aes(x = site_month, y = S.chao1))     
-> >    + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))
-> >    + labs(title= 'Chao1', x= ' ', y= '')   
-> >    + geom_point() 
-> >    + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+> > data_alphadiv_tidy %>%  
+> >   filter(alphadiv_index == "S.obs") %>%  
+> >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
+> >   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
+> >   ggplot(., aes(x=month, y=obs_values)) +  
+> >   geom_boxplot(aes(fill=month)) +  
+> >   geom_point() +  
+> >   facet_grid(. ~ site) +  
+> >   labs(y = "Richness", x="") +  
+> >   # x axis label reoriented for better readability  
+> >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 > > ~~~
 > > {: .language-r} 
-> > 
+
+> > **Chao1 plot.**   
+> > ~~~
+> > data_alphadiv_tidy %>%  
+> >   filter(alphadiv_index == "S.chao1") %>%  
+> >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
+> >   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
+> >   ggplot(., aes(x=month, y=obs_values)) +  
+> >   geom_boxplot(aes(fill=month)) +  
+> >   geom_point() +  
+> >   facet_grid(. ~ site) +  
+> >   labs(y = "Chao1", x="") +  
+> >   # x axis label reoriented for better readability  
+> >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+> > ~~~
+> > {: .language-r} 
+
 > > **Evenness plot.**
 > > ~~~
-> > data_alphadiv %>%    
-> >   mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September", "Parcey_July", "Parcey_August", 
-> > "Parcey_September")) %>% 
-> >   ggplot(aes(x = site_month, y = data_evenness))    
-> >    + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))    
-> >    + labs(title = 'Evenness', x = ' ', y = '')
-> >    + geom_point()    
-> >   + theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+> > data_alphadiv_tidy %>%  
+> >   filter(alphadiv_index == "data_evenness") %>%  
+> >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
+> >   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
+> >   ggplot(., aes(x=month, y=obs_values)) +  
+> >   geom_boxplot(aes(fill=month)) +  
+> >   geom_point() +  
+> >   facet_grid(. ~ site) +  
+> >   labs(y = "Evenness", x="") +  
+> >   # x axis label reoriented for better readability  
+> >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 > > ~~~
 > > {: .language-r}   
+
 > > **Shannon plot.**
 > > ~~~
-> > data_alphadiv %>%    
-> >   mutate(site_month = fct_relevel(site_month, "Cleron_July", "Cleron_August", "Cleron_September", "Parcey_July", "Parcey_August", 
-> > "Parcey_September")) %>% 
-> >   ggplot(aes(x = site_month, y = data_shannon))    
-> >    + geom_boxplot(fill = c("#e0f3f8", "#74add1", "#313695", "#fee090", "#f46d43", "#a50026"))    
-> >    + labs(title = 'Evenness', x = ' ', y = '')
-> >    + geom_point()    
-> >    + theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+> > data_alphadiv_tidy %>%  
+> >   filter(alphadiv_index == "data_shannon") %>%  
+> >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
+> >   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
+> >   ggplot(., aes(x=month, y=obs_values)) +  
+> >   geom_boxplot(aes(fill=month)) +  
+> >   geom_point() +  
+> >   facet_grid(. ~ site) +  
+> >   labs(y = "Shannon", x="") +  
+> >   # x axis label reoriented for better readability  
+> >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 > > ~~~
 > > {: .language-r}
 > {: .solution}
