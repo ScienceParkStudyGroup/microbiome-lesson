@@ -321,7 +321,7 @@ We can see now that:
 {: .challenge}
 
 > ## Exercise
->  test the effect of the harvesting site, the harvesting date and their interactions for the others alpha-diversity indices. Do the post-hoc test when it is necessary and interpret the results.      
+>  Test the effect of the harvesting site, the harvesting date and their interactions for the others alpha-diversity indices. Do the post-hoc test when it is necessary and interpret the results.      
 > > ## Solution
 > {: .solution}
 {: .challenge}
