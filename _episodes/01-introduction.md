@@ -4,7 +4,6 @@ teaching: 30
 exercises: 0
 questions:
 - What will I learn during this workshop?  
-- What are the tools that I will be using?  
 objectives:
 - List the learning objectives of this tutorial  
 - Present the data sets used in this tutorial  
