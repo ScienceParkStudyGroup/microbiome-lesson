@@ -10,8 +10,15 @@ keypoints:
 - ""
 
 ---
-
-## Overview  
+  
+## Table of Contents  
+- [1. Overview  ](#1-overview)
+- [2. Data preparation  ](#2-data-preparation)
+- [3. Global composition for all the samples - piechart  ](#3-global-composition-for-all-the-samples--piechart)
+- [4. Global bacterial community composition for each treatment - Barplot  ](#4-global-bacterial-community-composition-for-each-treatment--barplot)
+  
+  
+## 1. Overview  
 In this episode, you will find some very common visualizations which you will also frequently encounter in the literature are barplots, pie charts and boxplots. 
 In this part of the tutorial, you will learn how to plot and interpret microbiome composition.   
 
@@ -28,7 +35,7 @@ In this part of the tutorial, you will learn how to plot and interpret microbiom
 > However, in this tutorial, we will try to apply your R skills to filter and combine the data sets, and visualize the bacterial communities step by step.  
  {: .callout} 
   
-## Data preparation  
+## 2. Data preparation  
   
 First, we will create a new data table including the taxonomic information for only the OTU that remain in the filtered and normalized OTU data table.  
 ~~~
@@ -98,7 +105,7 @@ rm(data_otu_filt_rar_temp)
 {: .language-r}
   
   
-## Global composition for all the samples - piechart  
+## 3. Global composition for all the samples - piechart  
   
 We will visualize here the global bacterial composition in the Loue River without taking into account the different treatments. 
 We already calculated the sum for all the samples for each OTU (see the [data preparation section](#data-preparation)). 
@@ -139,7 +146,7 @@ representing 68% of the total bacterial community.
 Within the Proteobacteria, 77% of the reads were identified as Alphaproteobacteria.  
   
   
-## Global bacterial community composition for each treatment - Barplot  
+## 4. Global bacterial community composition for each treatment - Barplot  
   
 We will visualize here the global bacterial composition in the Loue River for each treatment. We already calculated for each OTU the sum of counts for all the samples that belong to a same treatment. We will then pool the OTU that belong to the same Phylum.  
   
@@ -164,25 +171,29 @@ com_per_treatment_phylum %>%
   
 We can observe that in August at Parcey, it seems to have more unclassified bacteria. Moreover, we can observe more Bacteroidetes and Verrucomicrobia when the water is colder at Cleron and in July in Parcey. Finally, we can also observed more Deinococcus-Thermus at Cleron than at Parcey and in September and less Acidobacteria at Cleron than at Parcey.  
   
-**EXERCICE:** We usually also represent Proteobacteria at Class level. Please plot the Proteobacteria community for each treatment and interpret the plot.  
-**SOLUTION:**  
-~~~
-# Fiter only Proteobacteria
-com_per_treatment_class_temp <- data_otu_taxo_filt_rar %>%
-  filter(Phylum == "Proteobacteria")
-# Sum per Class
-com_per_treatment_class_temp <- aggregate(com_per_treatment_class_temp[, 10:15], by=list(Class=com_per_treatment_class_temp$Class), sum)
-# Tidying the data set
-com_per_treatment_class <- com_per_treatment_class_temp %>%
-  gather(key   = treatment, value = obs_values,-Class)
-# Barplot
-com_per_treatment_class %>%
-  mutate(treatment = fct_relevel(treatment, "Cleron_July", "Cleron_August", "Cleron_September",
-                                  "Parcey_July", "Parcey_August", "Parcey_September")) %>%
-  ggplot(., aes(x=treatment, y=obs_values, fill=Class)) +
-  geom_bar(position="fill", stat="identity", width=0.9, color="white") +
-  theme(legend.title=element_blank(), legend.text = element_text(size = 7)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title= 'Proteobacteria', x= '', y= 'Proportion of the total counts')
-~~~
-{: .language-r} 
+> ## Exercice
+> We usually also represent Proteobacteria at Class level. Please plot the Proteobacteria community for each treatment and interpret the plot.  
+> > ## Solution
+> > ~~~
+> > # Fiter only Proteobacteria
+> > com_per_treatment_class_temp <- data_otu_taxo_filt_rar %>%
+> >   filter(Phylum == "Proteobacteria")
+> > # Sum per Class
+> > com_per_treatment_class_temp <- aggregate(com_per_treatment_class_temp[, 10:15], by=list(Class=com_per_treatment_class_temp$Class), sum)
+> > # Tidying the data set
+> > com_per_treatment_class <- com_per_treatment_class_temp %>%
+> >   gather(key   = treatment, value = obs_values,-Class)
+> > # Barplot
+> > com_per_treatment_class %>%
+> >   mutate(treatment = fct_relevel(treatment, "Cleron_July", "Cleron_August", "Cleron_September",
+> >                                   "Parcey_July", "Parcey_August", "Parcey_September")) %>%
+> >   ggplot(., aes(x=treatment, y=obs_values, fill=Class)) +
+> >   geom_bar(position="fill", stat="identity", width=0.9, color="white") +
+> >   theme(legend.title=element_blank(), legend.text = element_text(size = 7)) +
+> >   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+> >   labs(title= 'Proteobacteria', x= '', y= 'Proportion of the total counts')
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}  
+  
