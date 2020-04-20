@@ -279,6 +279,7 @@ plot(non_zero, xlab = "OTU", ylab = "Frequency", main = "Number of non zero valu
   
 > ## Question 
 > How do you interpret this plot?  
+>
 > > ## Solution:
 > > This plot represents the number of non-zero values. The x axis represents the different OTU (we have here 5248 OTU) and 
 > > the y axis represents the frequency (from 1 to 18, as we have 18 samples).  
@@ -304,6 +305,7 @@ After extracting the DNA from each sample independently, the biologist measures 
   
 > ## Question 
 > Why do you think that it is important to look for sequencing depth?  
+>
 > > ## Solution:
 > > First, it is important to know if we sequenced enough to catch all the diversity present in our environment.  
 > > Then, if you want to be able to compare the samples to each others, we need to have a comparable library size between samples.  
@@ -339,6 +341,7 @@ legend(15000, 3900, leg.txt, lty=c(2,1), lwd=1.3, box.lwd=0.6, cex=1)
 > ## Question 
 > 1. How do you interpret this plot? Do you think that the sequencing depth was enough for this experiment?  
 > 2. Do you think it is possible to compare the samples using this data set?  
+>  
 > > ## Solution:
 > > 1. You can see that none of the samples reach a plateau, so the sequencing depth was not enough, but we should not be so far from it. Our previous comparison between Richness and Chao1 give us the same interpretation.  
 > > 2. You can also see with this plot that the total number of reads per sample vary between samples, so it will be difficult to compare samples.  
@@ -361,10 +364,11 @@ max(sum_seq)
 > 1. How do you interpret this plot?  
 > 2. Do you observe similar results on the filtered data set?  
 > 3. Do you think it is an issue to have variation in the library size?  
+>
 > > ## Solutions:
 > > 1. We can see that there is differences in the library size for the different samples. The library size go from around 9000 reads to a
 > > bit more of 20000 reads (more than 2 fold change).  
-> > 2. If you lokk at the filtered data, you can see similar result, the filtering  does not change library size so much because you just
+> > 2. If you look at the filtered data, you can see similar result, the filtering  does not change library size so much because you just
 > > removed few OTU that were rare.  
 > > 3. Of course if you want to compare samples to each other, it will be an issue to have different library sizes. For example, if you 
 > > have a sample 1 with 1000 reads (500 reads for OTU1, 300 reads for OTU 2 and 200 reads for OTU 3) and a sample 2 with only 100 reads 

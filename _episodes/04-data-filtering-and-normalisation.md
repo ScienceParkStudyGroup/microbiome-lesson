@@ -40,6 +40,7 @@ data_otu_filt = data.frame(otu_table(data_phylo_filt)) # create a separated file
 > What is the percentage of zeros in the filtered OTU table?  
 > Plot the number of non zero values for each OTU (in the same way as for the nonfiltered data).  
 > Interpret these results.  
+>
 > > ## Solutions
 > > ~~~
 > > sum(data_otu_filt==0)
