@@ -1,7 +1,7 @@
 ---
 title: "Data exploration and properties"
 teaching: 60
-exercises: 0
+exercises: 30
 questions:
 - Which packages do I need for the analyses?  
 - How can I import my data in R?  
