@@ -18,7 +18,7 @@ keypoints:
 ## Table of Contents  
 - [1. Definitions and important information  ](#1-definitions-and-important-information)
 - [2. Indices calculation  ](#2-indices-calculation)
-- [3. Visualization  ](#3-visualisation)
+- [3. Visualization  ](#3-visualization)
 - [4. Statistical analyses  ](#4-statistical-analyses)
   
   
