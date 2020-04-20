@@ -14,7 +14,7 @@ keypoints:
   
 ## Table of Contents  
 - [1. Data filtering  ](#1-data-filtering)
-- [2. Normalization per sample  ](#2-normalisation-per-sample)
+- [2. Normalization per sample  ](#2-normalization-per-sample)
   
   
 ## 1. Data filtering  
