@@ -1,7 +1,7 @@
 ---
 title: "Data filtering and normalisation"
-teaching: 30
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - How can I filter and normalize my occurrence data?  
 objectives:
