@@ -1,13 +1,14 @@
 ---
 title: "Beta-diversity"
-teaching: 60
-exercises: 
+teaching: 30
+exercises: 30
 questions:
 - What is beta-diversity?  
 - How can I calculate and plot beta-diversity?  
 - How can I test differences among treatments?  
 objectives:
 - Define beta-diversity  
+- Describe the different methods to calculate beta-diversity  
 - Calculate Bray-Curtis distances  
 - Visualize beta-diversity for the diffrent treatments using phyloseq  
 - Test statistical differences among treatments
