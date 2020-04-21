@@ -11,6 +11,14 @@ keypoints:
 
 ---
   
+  
+## Table of Contents  
+- [1. Definitions and important information  ](#1-definitions-and-important-information)
+- [2. Distances calculation  ](#2-distances-calculation)
+- [3. Visualisation using PCOA ordination plot  ](#3-visualisation-using-pcoa-ordination-plot)
+- [4. Statistical test  ](#4-statistical-test)
+  
+  
 ## 1. Definitions and important information   
 While alpha-diversity represents the diversity within an ecosystem or a sample, beta-diversity represents the difference between two ecosystems/samples. In other word, how similar or different are two ecosystems or samples? So, betadiversity is a distance between two samples. Microbial ecologists do not use Euclidean distances but usually use Bray-Curtis, Jaccard or weight/unweight Unifrac distances to estimate the betadiversity.  
 Bray-Curtis dissimilarity is based on occurrence data (abundance), while Jaccard distance is based on presence/abscence data (does not include abundance information). UniFrac distances take into account the occurrence table and the phylogeny diversity (sequence distance). Weighted or unweighted UniFrac distances depending if taking into account relative abundance or only presence/absence.  
