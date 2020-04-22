@@ -30,7 +30,7 @@ keypoints:
 
 ~~~
 # install the following packages only if you need to
-# install.packages("Vegan")
+# install.packages("vegan")
 # install.packages("phyloseq")
 # install.packages("tidyverse")
 # install.packages("patchwork")
@@ -50,7 +50,7 @@ library(rcompanion)
   
   
   
-## 2. Import the data in R  
+## 2. Import the data into R  
 
 ~~~
 data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
@@ -79,7 +79,15 @@ data_phylo <- phyloseq(OTU, TAX, SAM) # create the phyloseq object including occ
 data_phylo # print information about the phyloseq object
 ~~~~
 {: .language-r}
-  
+
+This is what you should see:
+~~~
+phyloseq-class experiment-level object
+otu_table()   OTU Table:         [ 5248 taxa and 18 samples ]
+sample_data() Sample Data:       [ 18 samples by 3 sample variables ]
+tax_table()   Taxonomy Table:    [ 5248 taxa by 8 taxonomic ranks ]
+~~~
+{: .output}
   
   
 ## 4. Global exploration of the data sets  
