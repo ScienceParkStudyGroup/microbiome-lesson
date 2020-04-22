@@ -29,8 +29,7 @@ the raw data.
 {: .callout}
   
 ~~~
-{: .language-r}{r}
-data_phylo_filt = filter_taxa(data_phylo, function(x) sum(x > 2) > (0.11*length(x)), TRUE) # filter the OTU data using filter_taxa function included in phyloseq package
+data_phylo_filt = filter_taxa(data_phylo, function(x) sum(x > 2) > (0.11 * length(x)), TRUE) # filter the OTU data using filter_taxa function included in phyloseq package
 data_otu_filt = data.frame(otu_table(data_phylo_filt)) # create a separated file
 ~~~
 {: .language-r}   
@@ -43,22 +42,22 @@ data_otu_filt = data.frame(otu_table(data_phylo_filt)) # create a separated file
 >
 > > ## Solutions
 > > ~~~
-> > sum(data_otu_filt==0)
-> > sum(data_otu_filt==0)/(dim(data_otu_filt)[2]*dim(data_otu_filt)[1])*100
-> > hist(as.matrix(data_otu_filt), max(data_otu_filt), right=FALSE, las=1, xlab = "Occurrence value", ylab = "Frequency", main = "Occurrence frequency")
+> > sum(data_otu_filt == 0)
+> > sum(data_otu_filt == 0) / (dim(data_otu_filt)[2] * dim(data_otu_filt)[1]) * 100 
+> > hist(as.matrix(data_otu_filt), max(data_otu_filt), right = FALSE, las = 1, xlab = "Occurrence value", ylab = "Frequency", main = "Occurrence frequency")
 > > min(colSums(data_otu_filt))
-> > non_zero<-0*1:dim(data_otu_filt)[2]
+> > non_zero<-0 * 1:dim(data_otu_filt)[2]
 > > for (i in 1:dim(data_otu_filt)[2]){
 > >   non_zero[i]<-sum(data_otu_filt[,i] != 0)
 > >   }
-> > plot(non_zero, xlab = "OTU", ylab = "Frequency", main="Number of non zero values", las=1)
-> > # You can see that we removed 3867 OTU, which were extremly rare and mostly found in only few samples. We deacresed the number and percentage of zeros in our data set by removing these OTU.
+> > plot(non_zero, xlab = "OTU", ylab = "Frequency", main="Number of non zero values", las = 1)
+> > # You can see that we removed 3867 OTU, which were extremely rare and mostly found in only few samples. We decreased the number and percentage of zeros in our data set by removing these OTUs.  
 > > ~~~
-> > {: .language-r}
+> >{: .language-r}
 > {: .solution}
 {: .challenge}  
-  
-  
+
+
 ## 2. Normalization per sample  
   
 In the further analyses, we will compare counts between samples. To do so, we will have first to normalise the filtered occurrence table by sample in order to obtain the same library size for every samples.  
@@ -66,7 +65,9 @@ Different methods exist to normalise microbiome data: proportions and rarefying 
 For proportion, each read count is divided by the total sum of all reads of the corresponding sample. As a results, read sums for all the different samples are then equal to 1 and OTU occurrences are between 0 and 1.  
 For rarefying, the library size is arbritary defined for every samples as the smallest library size observed for all the samples (here, *min(sum_seq)*). Then, simple random samples without replacement are performed for every sample using the raw data.  
   
-**QUESTION:** What do you think are the pros and cons of these two methods?  
+> ## Discussion
+> What do you think are the pros and cons of these two methods?  
+{: .discussion} 
   
 > ## Remark 
 > When differences between library sizes is high (such as 10 fold change), it is recommended to use rarefying. As we usually observe 10 fold change in the library sizes, we will normalize here using the rarefying method.    
@@ -76,7 +77,7 @@ For rarefying, the library size is arbritary defined for every samples as the sm
 Rarefy the data. 
 ~~~
 set.seed(1782) # set seed for analysis reproducibility
-OTU_filt_rar = rarefy_even_depth(otu_table(data_phylo_filt), rngseed=T, replace=FALSE) # rarefy the raw data using Phyloseq package
+OTU_filt_rar = rarefy_even_depth(otu_table(data_phylo_filt), rngseed = TRUE, replace = FALSE) # rarefy the raw data using Phyloseq package
 data_otu_filt_rar = data.frame(otu_table(OTU_filt_rar)) # create a separated file
 data_phylo_filt_rar <- phyloseq(OTU_filt_rar, TAX, SAM) # create a phyloseq object
 ~~~

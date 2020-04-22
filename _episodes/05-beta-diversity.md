@@ -33,7 +33,7 @@ Distances metrics are between 0 and 1: 0 means identical communities in both sam
   
 ## 2. Distances calculation  
 ~~~
-dist_bc <- as.matrix(vegdist(data_otu_filt_rar, method="bray")) # calculate Bray-Curtis distance using vegan package
+dist_bc <- as.matrix(vegdist(data_otu_filt_rar, method = "bray")) # calculate Bray-Curtis distance using vegan package
 ~~~
 {: .language-r}
   
@@ -45,7 +45,7 @@ However, PCoA does not provide a direct link between the components and the orig
 PCoA based on Bray-Curtis distances for the two different sites:  
 ~~~
 pcoa_bc = ordinate(data_phylo_filt_rar, "PCoA", "bray") # calculate PCOA using Phyloseq package
-plot_ordination(data_phylo_filt_rar, pcoa_bc, color="site") # plot PCOA using Phyloseq package
+plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "site") # plot PCOA using Phyloseq package
 ~~~
 {: .language-r}
 
@@ -72,7 +72,7 @@ plot_ordination(data_phylo_filt_rar, pcoa_bc, color="site") # plot PCOA using Ph
 
 
 ~~~
-plot_ordination(data_phylo_filt_rar, pcoa_bc, color="month") # plot PCOA using Phyloseq package
+plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "month") # plot PCOA using Phyloseq package
 ~~~
 {: .language-r}
 The PCOA plot represents every samples as a dot, which is colored according to their sampling date (July in green, August in red and September in blue). First, this two-dimensions PCOA plot show 42% of the total variance between the samples. Then, we cannot clearly differentiate the sample harvested in the different dates nether on the first nor secand axis. Indeed, the intra-variability between the samples harvested in July, August or September is similar to the inter-varibility between the months.
