@@ -312,7 +312,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 And then the effect of the sampling date on the richness also with a one-factor ANOVA test. 
 ~~~
-summary(aov(data_shannon ~ month, data = data_alphadiv))
+aov_test <- aov(data_shannon ~ month, data = data_alphadiv)  
+summary(aov_test)  
 ~~~
 {: .language-r}
 
@@ -330,22 +331,6 @@ We can interpret the results as following:
   - There is no significant effect of the sampling site: Pr(>F) = 0.0821 (P-value > 0.05)  
   - There is a significant effect of the sampling date: Pr(>F) = 0.026 (P-value < 0.05)  
   
-~~~
-# ANOVA
-aov_test <- aov(data_shannon ~ month, data = data_alphadiv)  
-summary(aov_test)  
-~~~
-{: .language-r}
-
-~~~
-            Df Sum Sq Mean Sq F value Pr(>F)  
-month        2  0.885  0.4425   4.701  0.026 *
-Residuals   15  1.412  0.0941                 
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-~~~
-{: .output}
-
 Now, we know that that there is significant difference between the sampling dates but we don't know which sampling date is significantly different from the others. Indeed, if we had only two levels (such as for the sites), we could automatically say that date 1 is significantly different from date 2 but we have here three levels (*e.g.* July, August and September).  
 
 In order to know what are the differences among the sampling dates, we can do a post-hoc test (such as Tukey test for the parametric version or Dunn test for the non-parametric version).  
