@@ -16,10 +16,10 @@ keypoints:
 ---
   
 ## Table of Contents  
-- [1. Definitions and important information  ](#1-definitions-and-important-information)
-- [2. Indices calculation  ](#2-indices-calculation)
-- [3. Visualization  ](#3-visualization)
-- [4. Statistical analyses  ](#4-statistical-analyses)
+1. [Definitions and important information](#1-definitions-and-important-information)
+2. [Indices calculation](#2-indices-calculation)
+3. [Visualization](#3-visualization)
+4. [Statistical analyses](#4-statistical-analyses)
   
   
 ## 1. Definitions and important information   
@@ -27,32 +27,43 @@ Alpha-diversity represents diversity within an ecosystem or a sample, in other w
 In this tutorial, we are looking at the OTU level (clustered at 97% similarity thresholds).  
   
 Several alpha-diversity indices can be calculated. Within the most commonly used:  
-- Richness represents the number of species observed in each sample  
-- Chao1 estimates the total richness  
-- Pielou’s evenness provides information about the equity in species abundance in each sample, in other words are some species dominating others or do all species have quite the same abundances  
-- Shannon index provides information about both richness and evenness  
+- Richness represents the number of species observed in each sample.  
+- Chao1 estimates the total richness.  
+- Pielou’s evenness provides information about the equity in species abundance in each sample, in other words are some species dominating others or do all species have quite the same abundances.  
+- Shannon index provides information about both richness and evenness.  
   
   
 > ## Remark 
-> Alpha-diversity is calculated on the raw data, here *data_otu* or *data_phylo* if you are using phyloseq.  
+> Alpha-diversity is calculated on the raw data, here `data_otu` or `data_phylo` if you are using phyloseq.  
 It is important to not use filtered data because many richness estimates are modeled on singletons and doubletons in the occurrence table. So, you need to leave them in the dataset if you want a meaningful estimate.  
 Moreover, we usually not using normalized data because we want to assess the diversity on the raw data and we are not comparing samples to each other but only assessing diversity within each sample.  
 {: .callout}
   
+~~~
+# Run this if you don't have these objects into your R environment
+data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
+data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header = TRUE)
+data_taxo <- read.table("data_loue_16S_nonnorm_taxo.txt", header = TRUE)
+
+OTU = otu_table(as.matrix(data_otu), taxa_are_rows = FALSE)              
+SAM = sample_data(data_grp, errorIfNULL = TRUE)                
+TAX = tax_table(as.matrix(data_taxo)) 
+data_phylo <- phyloseq(OTU, TAX, SAM) 
+~~~
+{: .language-r}
   
 ## 2. Indices calculation  
+
 ~~~
-data_richness <- estimateR(data_otu) # calculate richness and Chao1 using vegan package
+data_richness <- estimateR(data_otu)                                            # calculate richness and Chao1 using vegan package
 
-data_evenness <- diversity(data_otu)/log(specnumber(data_otu)) # calculate evenness index using vegan package
+data_evenness <- diversity(data_otu) / log(specnumber(data_otu))                # calculate evenness index using vegan package
 
-data_shannon <- diversity(data_otu, index = "shannon") # calculate Shannon index using vegan package
+data_shannon <- diversity(data_otu, index = "shannon")                          # calculate Shannon index using vegan package
 
-data_alphadiv <- cbind(data_grp, t(data_richness), data_shannon, data_evenness) # Combine all indices in one data table
+data_alphadiv <- cbind(data_grp, t(data_richness), data_shannon, data_evenness) # combine all indices in one data table
 
-rm(data_richness,
-   data_evenness,
-   data_shannon) # remove the unnecessary data/vector
+rm(data_richness, data_evenness, data_shannon)                                  # remove the unnecessary data/vector
 ~~~
 {: .language-r}
 
@@ -60,40 +71,61 @@ We used here the R package vegan in order to calculate the different alpha-diver
   
 Put the data in tidy format  
 ~~~
-data_alphadiv_tidy <- data_alphadiv %>%
+data_alphadiv_tidy <- 
+  data_alphadiv %>%
   mutate(sample_id = rownames(data_alphadiv)) %>%
   gather(key   = alphadiv_index,
          value = obs_values,
          -sample_id, -site, -month, -site_month)
+
+head(data_alphadiv_tidy)
 ~~~
 {: .language-r}
   
+~~~
+  site    month    site_month    sample_id           alphadiv_index obs_values
+1 Cleron   July   Cleron_July   Cleron_07_1          S.obs          1137
+2 Cleron   July   Cleron_July   Cleron_07_2          S.obs          1274
+3 Cleron   July   Cleron_July   Cleron_07_3          S.obs          1605
+4 Cleron August   Cleron_August Cleron_08_1          S.obs          1575
+5 Cleron August   Cleron_August Cleron_08_2          S.obs          1353
+6 Cleron August   Cleron_August Cleron_08_3          S.obs          1357
+~~~
+{: .output}
   
 ## 3. Visualization  
   
 Plot the four alpha-diversity indices for both sites.  
 ~~~
+# Remark: For this part you need the R packages `ggplot2` and `patchwork`.  
+
 P1 <- ggplot(data_alphadiv, aes(x=site, y=S.obs)) +
   geom_boxplot(fill=c("blue","red")) +
   labs(title= 'Richness', x= ' ', y= '', tag = "A") +
   geom_point()
+
 P2 <- ggplot(data_alphadiv, aes(x=site, y=S.chao1)) +
   geom_boxplot(fill=c("blue","red")) +
   labs(title= 'Chao1', x= ' ', y= '', tag = "B") +
   geom_point()
+
 P3 <- ggplot(data_alphadiv, aes(x=site, y=data_evenness)) +
   geom_boxplot(fill=c("blue","red")) +
   labs(title= 'Eveness', x= ' ', y= '', tag = "C") +
   geom_point()
+
 P4 <- ggplot(data_alphadiv, aes(x=site, y=data_shannon)) +
   geom_boxplot(fill=c("blue","red")) +
   labs(title= 'Shannon', x= ' ', y= '', tag = "D") +
   geom_point()
+
+# all plots together using the patchwork package
 (P1 | P2) / (P3 | P4)
 ~~~
 {: .language-r}
-  
-Remark: For this part you need the R packages `ggplot2` and `patchwork`.  
+
+<img src="../img/03-four-alpha.png" width="600px">
+
   
 > ## Questions
 > 1. How many OTU are observed in the two different sites? 
@@ -111,13 +143,24 @@ Remark: For this part you need the R packages `ggplot2` and `patchwork`.
 Plot the four alpha-diversity indices for both sites.  
 ~~~
 pairs(data_alphadiv[,c(4,5,9,10)])
+~~~
+{: .language-r}
 
+<img src="../img/03-four-alpha-2.png" width="600px">
+
+~~~
 cor(data_alphadiv[,c(4,5,9,10)])
 ~~~
 {: .language-r}
-  
-  
 
+~~~
+                  S.obs   S.chao1 data_shannon data_evenness
+S.obs         1.0000000 0.9434173    0.6752153     0.4452549
+S.chao1       0.9434173 1.0000000    0.7187563     0.5176397
+data_shannon  0.6752153 0.7187563    1.0000000     0.9609561
+data_evenness 0.4452549 0.5176397    0.9609561     1.0000000
+~~~
+{: .output}
   
 > ## Exercise
 > Plot the samples according to their harvesting time point. Interpret the new plot as you did before for the sites.  
@@ -176,11 +219,11 @@ data_alphadiv_tidy %>%
   filter(alphadiv_index == "S.obs") %>%  
   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
-  ggplot(., aes(x=month, y=obs_values)) +  
-  geom_boxplot(aes(fill=month)) +  
+  ggplot(., aes(x = month, y = obs_values)) +  
+  geom_boxplot(aes(fill = month)) +  
   geom_point() +  
   facet_grid(. ~ site) +  
-  labs(y = "Richness", x="") +  
+  labs(y = "Richness", x = "") +  
   # x axis label reoriented for better readability  
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 ~~~
@@ -196,11 +239,11 @@ data_alphadiv_tidy %>%
 > >   filter(alphadiv_index == "S.chao1") %>%  
 > >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
 > >   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
-> >   ggplot(., aes(x=month, y=obs_values)) +  
-> >   geom_boxplot(aes(fill=month)) +  
+> >   ggplot(., aes(x = month, y = obs_values)) +  
+> >   geom_boxplot(aes(fill = month)) +  
 > >   geom_point() +  
 > >   facet_grid(. ~ site) +  
-> >   labs(y = "Chao1", x="") +  
+> >   labs(y = "Chao1", x = "") +  
 > >   # x axis label reoriented for better readability  
 > >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 > > ~~~
@@ -212,11 +255,11 @@ data_alphadiv_tidy %>%
 > >   filter(alphadiv_index == "data_evenness") %>%  
 > >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
 > >   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
-> >   ggplot(., aes(x=month, y=obs_values)) +  
-> >   geom_boxplot(aes(fill=month)) +  
+> >   ggplot(., aes(x = month, y = obs_values)) +  
+> >   geom_boxplot(aes(fill = month)) +  
 > >   geom_point() +  
 > >   facet_grid(. ~ site) +  
-> >   labs(y = "Evenness", x="") +  
+> >   labs(y = "Evenness", x = "") +  
 > >   # x axis label reoriented for better readability  
 > >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 > > ~~~
@@ -228,11 +271,11 @@ data_alphadiv_tidy %>%
 > >   filter(alphadiv_index == "data_shannon") %>%  
 > >   # fct_relevel() in forecats package to rearrange the sites and months as we want (chronologic)  
 > >   mutate(month = fct_relevel(month, "July", "August", "September")) %>%  
-> >   ggplot(., aes(x=month, y=obs_values)) +  
-> >   geom_boxplot(aes(fill=month)) +  
+> >   ggplot(., aes(x = month, y = obs_values)) +  
+> >   geom_boxplot(aes(fill = month)) +  
 > >   geom_point() +  
 > >   facet_grid(. ~ site) +  
-> >   labs(y = "Shannon", x="") +  
+> >   labs(y = "Shannon", x = "") +  
 > >   # x axis label reoriented for better readability  
 > >   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 > > ~~~
@@ -252,34 +295,77 @@ You can use different statistical tests in order to test if there is any signifi
 
 In this tutorial, we will use parametric tests.  
   
-We will first test the effect of the sampling site and the sampling date on the richness using one-factor ANOVA tests.  
+We will first test the effect of the sampling site on the richness using one-factor ANOVA test.  
 ~~~
 summary(aov(data_shannon ~ site, data = data_alphadiv))
+~~~
+{: .language-r}
 
+~~~
+            Df Sum Sq Mean Sq F value Pr(>F)  
+site         1 0.4066  0.4066   3.442 0.0821 .
+Residuals   16 1.8903  0.1181                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
+{: .output}
+
+And then the effect of the sampling date on the richness also with a one-factor ANOVA test. 
+~~~
 summary(aov(data_shannon ~ month, data = data_alphadiv))
 ~~~
 {: .language-r}
+
+
+~~~
+            Df Sum Sq Mean Sq F value Pr(>F)  
+month        2  0.885  0.4425   4.701  0.026 *
+Residuals   15  1.412  0.0941                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
+{: .output}
   
 We can interpret the results as following:    
   - There is no significant effect of the sampling site: Pr(>F) = 0.0821 (P-value > 0.05)  
   - There is a significant effect of the sampling date: Pr(>F) = 0.026 (P-value < 0.05)  
   
-Now, we know that that there is significant difference between the sampling dates but we don't know which sampling date is significantly different from the others. Indeed, if we had only two levels (such as for the sites), we could automatically say that date 1 is significantly different from date 2 but we have here three levels (*e.g.* July, August and September).  
-
-In order to know what are the differences among the sampling dates, we can do a post-hoc test (such as Tukey test for the parametric version or Dunn test for the non-parametric version).  
-  
-We will thus do a Tukey test to test differences among the sampling dates.  
 ~~~
 # ANOVA
 aov_test <- aov(data_shannon ~ month, data = data_alphadiv)  
 summary(aov_test)  
+~~~
+{: .language-r}
 
+~~~
+            Df Sum Sq Mean Sq F value Pr(>F)  
+month        2  0.885  0.4425   4.701  0.026 *
+Residuals   15  1.412  0.0941                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
+{: .output}
+
+Now, we know that that there is significant difference between the sampling dates but we don't know which sampling date is significantly different from the others. Indeed, if we had only two levels (such as for the sites), we could automatically say that date 1 is significantly different from date 2 but we have here three levels (*e.g.* July, August and September).  
+
+In order to know what are the differences among the sampling dates, we can do a post-hoc test (such as Tukey test for the parametric version or Dunn test for the non-parametric version).  
+  
+We will thus do a Tukey Honest Significant Difference test to test differences among the sampling dates.  
+~~~
 # post-hoc test
 hsd_test <- TukeyHSD(aov_test) # require the agricolae package  
 hsd_res <- HSD.test(aov_test, "month", group=T)$groups  
 hsd_res  
 ~~~
 {: .language-r}   
+
+~~~
+          data_shannon groups
+July          5.870813      a
+September     5.710602     ab
+August        5.341253      b
+~~~
+{: .output}
   
 We can interpret the results as following:  
   - Samples harvested in July are significantly different from the samples harvested in August  
@@ -296,6 +382,17 @@ We will test the effect of the sampling site, the sampling date and their intera
 summary(aov(data_shannon ~ site * month, data = data_alphadiv))
 ~~~
 {: .language-r}
+
+~~~
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+site         1 0.4066  0.4066   51.57 1.12e-05 ***
+month        2 0.8850  0.4425   56.12 8.12e-07 ***
+site:month   2 0.9107  0.4553   57.74 6.95e-07 ***
+Residuals   12 0.0946  0.0079                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+~~~
+{: .output}
   
 We can see now that:  
   - There is a significant effect of the sampling site: Pr(>F) = 1.12e-05  (P-value < 0.05)  
@@ -340,4 +437,18 @@ We can see now that:
 > {: .language-r} 
 {: .callout}   
   
+~~~
+# Kruskal-Wallis
+Kruskal-Wallis rank sum test
+data:  data_shannon by month
+Kruskal-Wallis chi-squared = 8.5029, df = 2, p-value = 0.01424
+
+# Dunn test
+      Group Letter MonoLetter
+1    August      a         a 
+2      July      b          b
+3 September      b          b
+~~~
+{: .output
+}
   
