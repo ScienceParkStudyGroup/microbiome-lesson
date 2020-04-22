@@ -50,7 +50,7 @@ library(rcompanion)
   
   
   
-## 2. Import the data into R  
+## 2. Import the data interpretation R  
 
 ~~~
 data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
@@ -101,6 +101,15 @@ data_otu[1:5, 1:6] # as we have here a high number of variables it is better to 
 ~~~
 {: .language-r}
 
+~~~
+            OTU_00009 OTU_00010 OTU_00020 OTU_00025 OTU_00032 OTU_00035
+Cleron_07_1         0         0         0         1         0         0
+Cleron_07_2         0         0         0         0         0         0
+Cleron_07_3         2         0         0         2         0         0
+Cleron_08_1         1         0         0         4         0         0
+Cleron_08_2         0         0         0         1         0         0
+~~~
+{: .output}
 
 The OTU table has samples in rows and variables (OTU) in columns.  
 
@@ -109,11 +118,9 @@ The OTU table has samples in rows and variables (OTU) in columns.
 {: .callout}
   
   
-  
-Check how many samples and variables are in the OTU table?  
-  
+Let's check how many samples and variables there are in the OTU table.
 ~~~
-nb_samples <- dim(data_otu)[1] # nb of raws, here samples
+nb_samples <- dim(data_otu)[1] # nb of rows, here samples
 nb_samples
 
 nb_var <- dim(data_otu)[2] # number of columns, here variables (OTU)
@@ -121,6 +128,7 @@ nb_var
 ~~~
 {: .language-r}
 
+There are __18 samples__ and __5248 variables__. 
 
 > ## Remark
 > If you want to use phyloseq, you can use `nsamples()` and `ntaxa()` functions, such as `nsamples(data_phylo)` and `ntaxa(data_phylo)`.  
@@ -163,6 +171,18 @@ summary(data_grp)
 ~~~
 {: .language-r}
   
+~~~
+ site       month         site_month
+ Cleron:9   August   :6   Cleron_August   :3   
+ Parcey:9   July     :6   Cleron_July     :3   
+            September:6   Cleron_September:3   
+                          Parcey_August   :3   
+                          Parcey_July     :3   
+                          Parcey_September:3   
+
+~~~
+{: .output}
+
 There are nine samples harvested or replicates (ignoring the month of harvest) for each of the two sites: Cleron (located at the upstream area of the river) and Parcey (located at the downstream area of the river). There are six replicates per month (ignoring the site of harvest). There are three replicates considering both site and month of harvest.  
   
 > ## Remark
@@ -180,7 +200,7 @@ In the following part of this tutorial, we will discuss some problematic issues 
   
   
 ## 5. OTU data properties 
-Based on the raw data: `data_otu` table. Microbiome data sets are usually sparse and have uneven library size.  
+Based on the raw data: `data_otu` table. Microbiome data sets are usually sparse and have an uneven library size.  
   
   
 ### 5.1. Sparsity  
@@ -192,6 +212,8 @@ sum(data_otu == 0)
 sum(data_otu == 0) / (nb_var * nb_samples) * 100
 ~~~
 {: .language-r}
+
+There are 68633 zeros in the OTU table which represent around 73% of the values.
 
 
 > ## Question
@@ -213,7 +235,8 @@ sum(data_otu == 0) / (nb_var * nb_samples) * 100
 
 
 > ## Remark 
-> Here, the percentage of zeros is relatively high. In order to be able to apply specific statistical approaches later, we should think about filtering the OTU data.  
+> Here, the percentage of zeros is relatively high. In order to be able to apply specific statistical approaches later, 
+> we should think about filtering the OTU data.  
 {: .callout}   
   
   
@@ -232,6 +255,8 @@ hist(as.matrix(data_otu),
      main = "Occurrence frequency")
 ~~~
 {: .language-r}
+
+<img src="../img/02-histogram-1.png" width="600px"> 
   
 > ## Question 
 > How do you interpret this histogram?  
@@ -239,15 +264,13 @@ hist(as.matrix(data_otu),
 > > This plot represents the occurence frequency. The x axis represents the occurence value (for the all OTU table, so for 
 > > each sample and OTU) and y the frequency.  
 > > You can see that for x = 0, y = 68633. So, there are 68633 zeros in the OTU table.  
-> > You can also see that the histogram is rapidely decreasing when x increases. That means that there is a lot of low counts > > occurences (such as 0, 1 or 2 counts per OTU and per sample) and few abundant OTU.  
+> > You can also see that the histogram is rapidly decreasing as x increases. This means that there is a lot of low counts > > occurences (such as 0, 1 or 2 counts per OTU and per sample) and few abundant OTU.  
 > {: .solution}
 {: .challenge}
 
 > ## Remark 
-> One option for data fitering could be to remove OTU that have a number of counts for all the samples lower than a define value.   
+> One option for data fitering could be to remove OTUs that have a number of counts for all the samples lower than a define value.   
 {: .callout}   
-  
-  
   
   
 #### 5.1.3. Minimum of counts per OTU for all the samples  
@@ -284,6 +307,8 @@ for (i in 1:nb_var){
 plot(non_zero, xlab = "OTU", ylab = "Frequency", main = "Number of non zero values", las = 1)
 ~~~
 {: .language-r} 
+
+<img src="../img/02-zeros.png" width="600px">
   
 > ## Question 
 > How do you interpret this plot?  
@@ -327,23 +352,36 @@ After extracting the DNA from each sample independently, the biologist measures 
 Microbial ecologists explore sequencing depth though a rarefaction curve. The rarefaction curve shows how many new OTU are observed when we obtain new reads for a given sample. If the sequencing depth is enough, we should observe a plateau, meaning that even if we sequence new reads they will belong to OTUs already observed. In other word, all the diversity present in a sample is already described and we have sequenced the community deeply enough. This analysis should be execute on the raw data.  
   
 > ## Remark 
-> We check sequencing depth on the raw data: *data_otu*.  
+> We check sequencing depth on the raw data: `data_otu`.  
 {: .callout}
 
+The parameter `step` is used here to decrease computation time. `step = 100` means that the rarefaction curve will be calculated and plotted only for sample size = 1, 101, 201, (...), and maximun value.
 ~~~
-rarecurve(data_otu, step = 100, cex=0.75, las=1) # the parameter step is used here to decrease computation time - step = 100 means that the rarefaction curve will be calculated and plotted only for sample size = 1, 101, 201, (...), and maximun value.
+rarecurve(data_otu, step = 100, cex = 0.75, las = 1) 
 ~~~
 {: .language-r}
+
+<img src="../img/02-rarecurve.png" width="600px">
   
 We can also customize the plot: adding title, legend, etc.  
 ~~~
-par(cex=1, las=1)
+par(cex = 1, las = 1)
 leg.txt <- c("Cleron", "Parcey")
 lty_vector <- c(2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1)
-rarecurve(data_otu, step = 100, lwd=1.3, xlab = "Number of reads", ylab = "Number of OTU observed", xlim = c(-50, 23000), ylim = c(-5, 4000), label = FALSE, lty = lty_vector) 
-legend(15000, 3900, leg.txt, lty=c(2,1), lwd=1.3, box.lwd=0.6, cex=1)
+rarecurve(data_otu, 
+	step = 100, 
+	lwd=1.3, 
+	xlab = "Number of reads", 
+	ylab = "Number of OTU observed", 
+	xlim = c(-50, 23000), 
+	ylim = c(-5, 4000), 
+	label = FALSE, 
+	lty = lty_vector) 
+legend(15000, 3900, leg.txt, lty = c(2,1), lwd = 1.3, box.lwd = 0.6, cex = 1)
 ~~~
 {: .language-r}
+
+<img src="../img/02-rarecurve-customised.png" width="600px">
   
   
 > ## Question 
@@ -363,11 +401,31 @@ We will now plot the total number of counts per sample.
 sum_seq <- rowSums(data_otu)
 plot(sum_seq, ylim=c(0,25000), main=c("Number of counts per sample"), xlab=c("Samples"))
 sum_seq
+~~~
+{: .language-r}
+
+~~~
+Cleron_07_1 Cleron_07_2 Cleron_07_3 Cleron_08_1 Cleron_08_2 Cleron_08_3 Cleron_09_1 
+      13146       16390       19685       18657       15916       20347       15698 
+Cleron_09_2 Cleron_09_3 Parcey_07_1 Parcey_07_2 Parcey_07_3 Parcey_08_1 Parcey_08_2 
+       8726       10814       14009        8914       10661       15842       13760 
+Parcey_08_3 Parcey_09_1 Parcey_09_2 Parcey_09_3 
+      12323       12066        9008        9277 
+~~~
+{: .output}
+  
+~~~
 min(sum_seq)
 max(sum_seq)
 ~~~
 {: .language-r}
-  
+
+~~~
+[1] 8726
+[1] 20347
+~~~
+{: .output}
+
 > ## Questions 
 > 1. How do you interpret this plot?  
 > 2. Do you observe similar results on the filtered data set?  
