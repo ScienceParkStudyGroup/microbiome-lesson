@@ -1,15 +1,28 @@
 ---
 title: "Beta-diversity"
-teaching: 60
-exercises: 
+teaching: 30
+exercises: 30
 questions:
-- "Question one."
+- What is beta-diversity?  
+- How can I calculate and plot beta-diversity?  
+- How can I test differences among treatments?  
 objectives:
-- "Objective one."
+- Define beta-diversity  
+- Describe the different methods to calculate beta-diversity  
+- Calculate Bray-Curtis distances  
+- Visualize beta-diversity for the diffrent treatments using phyloseq  
+- Test statistical differences among treatments
 keypoints:
 - "Keypoint one."
 
 ---
+    
+## Table of Contents  
+- [1. Definitions and important information  ](#1-definitions-and-important-information)
+- [2. Distances calculation  ](#2-distances-calculation)
+- [3. Visualisation using PCOA ordination plot  ](#3-visualisation-using-pcoa-ordination-plot)
+- [4. Statistical test  ](#4-statistical-test)
+  
   
 ## 1. Definitions and important information   
 While alpha-diversity represents the diversity within an ecosystem or a sample, beta-diversity represents the difference between two ecosystems/samples. In other word, how similar or different are two ecosystems or samples? So, betadiversity is a distance between two samples. Microbial ecologists do not use Euclidean distances but usually use Bray-Curtis, Jaccard or weight/unweight Unifrac distances to estimate the betadiversity.  
