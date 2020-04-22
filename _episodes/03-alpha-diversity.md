@@ -295,7 +295,7 @@ You can use different statistical tests in order to test if there is any signifi
 
 In this tutorial, we will use parametric tests.  
   
-We will first test the effect of the sampling site on the richness using one-factor ANOVA test.  
+We will first test the effect of the sampling site on the Shannon index using one-factor ANOVA test.  
 ~~~
 summary(aov(data_shannon ~ site, data = data_alphadiv))
 ~~~
@@ -310,7 +310,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ~~~
 {: .output}
 
-And then the effect of the sampling date on the richness also with a one-factor ANOVA test. 
+And then the effect of the sampling date on the Shannon index also with a one-factor ANOVA test. 
 ~~~
 aov_test <- aov(data_shannon ~ month, data = data_alphadiv)  
 summary(aov_test)  
