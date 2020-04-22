@@ -29,13 +29,6 @@ In this part of the tutorial, you will learn how to plot and interpret microbiom
 > In order, to be able to assign taxonomy to the different OTU, we will use both OTU table and taxonomy table (originally *data_taxo*).  
 {: .callout}
 
-<br>
-
-> ## Remark 
-> In the `phyloseq` package, you can find fonctions that allow you to rapidly represent the microbial composition (see for example https://joey711.github.io/phyloseq/plot_bar-examples.html).   
-> However, in this tutorial, we will try to apply your R skills to filter and combine the data sets, and visualize the bacterial communities step by step.  
- {: .callout} 
-
 ~~~
 # Run this if you don't have these objects into your R environment
 library(vegan)
@@ -51,12 +44,19 @@ SAM = sample_data(data_grp, errorIfNULL = TRUE)
 TAX = tax_table(as.matrix(data_taxo)) 
 data_phylo <- phyloseq(OTU, TAX, SAM) 
 
-set.seed(1782) # set seed for analysis reproducibility
 data_phylo_filt = filter_taxa(data_phylo, function(x) sum(x > 2) > (0.11 * length(x)), TRUE) 
+set.seed(1782) # set seed for analysis reproducibility
 OTU_filt_rar = rarefy_even_depth(otu_table(data_phylo_filt), rngseed = TRUE, replace = FALSE) # rarefy the raw data using Phyloseq package
 data_otu_filt_rar = data.frame(otu_table(OTU_filt_rar)) # create a separated file
 ~~~
 {: .language-r}
+
+<br>
+
+> ## Remark 
+> In the `phyloseq` package, you can find fonctions that allow you to rapidly represent the microbial composition (see for example https://joey711.github.io/phyloseq/plot_bar-examples.html).   
+> However, in this tutorial, we will try to apply your R skills to filter and combine the data sets, and visualize the bacterial communities step by step.  
+ {: .callout} 
 
 
   
