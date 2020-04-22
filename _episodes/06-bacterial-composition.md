@@ -67,14 +67,6 @@ First, we will create a new data table including the taxonomic information for o
 data_taxo_filt_rar <- data_taxo[which(rownames(data_taxo) %in% colnames(data_otu_filt_rar)),]
 
 data_taxo_filt_rar$OTU_id <- rownames(data_taxo_filt_rar) # add the rownames in a column in order to be able to use it later with dplyr
-
-head(data_taxo_filt_rar)
-
-dim(data_taxo) # all OTU = 5248
-
-dim(data_otu_filt_rar) # after filt and norm nb of OTU = 1381
-
-dim(data_taxo_filt_rar) # chech dimensions, we have now 1381 OTUs
 ~~~
 {: .language-r}
   
