@@ -34,16 +34,6 @@ Distances metrics are between 0 and 1: 0 means identical communities in both sam
 > Beta-diversity is calculated on filtered and normalized data tables: the `data_otu_filt_rar` data table or the phyloseq object `data_phylo_filt_rar`.  
 {: .callout} 
 
-> ## Question 
-> Why would Bray-Curtis or Unifrac distances be better for microbiota data than the Euclidean distance?  
-> > ## Solution 
-> > Microbiota data are sparse and specific distances, such as Bray-Curtis, Jaccard or weight/unweight Unifrac distances, better deal with the problem of the presence of many double zeros in data sets.  
-> {: .solution}
-{: .challenge}
-  
-> ## Remark
-> We cannot calculate UniFrac distances here because we don't have the phylogenic distances.  
-{: .callout}  
 
 ~~~
 # Run this if you don't have these objects into your R environment
@@ -56,13 +46,24 @@ SAM = sample_data(data_grp, errorIfNULL = TRUE)
 TAX = tax_table(as.matrix(data_taxo)) 
 data_phylo <- phyloseq(OTU, TAX, SAM) 
 
-set.seed(1782) # set seed for analysis reproducibility
 data_phylo_filt = filter_taxa(data_phylo, function(x) sum(x > 2) > (0.11 * length(x)), TRUE) 
+set.seed(1782) # set seed for analysis reproducibility
 OTU_filt_rar = rarefy_even_depth(otu_table(data_phylo_filt), rngseed = TRUE, replace = FALSE) # rarefy the raw data using Phyloseq package
 data_otu_filt_rar = data.frame(otu_table(OTU_filt_rar)) # create a separated file
 data_phylo_filt_rar <- phyloseq(OTU_filt_rar, TAX, SAM) # create a phyloseq object
 ~~~
 {: .language-r}
+
+> ## Question 
+> Why would Bray-Curtis or Unifrac distances be better for microbiota data than the Euclidean distance?  
+> > ## Solution 
+> > Microbiota data are sparse and specific distances, such as Bray-Curtis, Jaccard or weight/unweight Unifrac distances, better deal with the problem of the presence of many double zeros in data sets.  
+> {: .solution}
+{: .challenge}
+  
+> ## Remark
+> We cannot calculate UniFrac distances here because we don't have the phylogenic distances.  
+{: .callout}  
   
 ## 2. Distances calculation  
 ~~~
@@ -115,34 +116,48 @@ plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "site") +
 {: .challenge}
   
 > ## Exercise
-> Represent, now the samples according to their sampling date, and then according to their sample site and date. Interpret the corresponding plots.  
+> Represent, now the samples according to their sampling dates. Interpret the corresponding plots.  
 >
 > > ## Solution
+> > ~~~
+> > # plot PCOA using Phyloseq package
+> > plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "month") + 
+> >   geom_point(size = 3)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../img/05-pcoa-2.png" width="600px">
+> > 
+> > The PCOA plot represents every samples as a dot, which is colored according to their sampling date (July in green, August in red and September in blue). First, this two-dimensional PCOA plot show 42% of the total variance between the samples. Then, we cannot clearly differentiate the sample harvested in the different dates neither on the first nor on the second axis. Indeed, the intra-variability between the samples harvested in July, August or September is similar to the inter-varibility between the months.  
+> > 
+> {: .solution}
+{: .challenge}
+
+> ## Exercise
+> Represent, now the samples according to their sampling sites and dates. Interpret the corresponding plots.  
+>
+> > ## Solution
+> > ~~~
+> > # plot PCOA using Phyloseq package
+> > plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "site", shape ="month") + 
+> >   geom_point(size = 3)
+> > ~~~
+> > {: .language-r}
+> > 
+> > The PCOA plot represents every samples as a dot, which is colored according to their sampling site and date.  
+> > First, this two-dimensions PCOA plot show 42% of the total variance between the samples.  
+> > Then, we can see that on both first and second axis, we can differenciate samples harvested in Cleron and in Parcey.  
+> > We can also differenciate samples harvested in Parcey in July, August and September on both first and second axis.  
+> > For the samples harvested in Cleron, we can only differenciate samples harvested in August and September on the second axis, which represent 20% of the total variance.  
+> > Finally, we can see that the intra-variability between the samples harvested in Cleron is much lower than the intra-variability between the samples harvested in Parcey. This can be explained by the lowest difference among the three sampling dates in Cleron than for Parcey.  
+> > So, we can clearly observe difference between the two sampling sites and differences among the three sampling dates, especially for samples harvested in Parcey.  
 > > 
 > {: .solution}
 {: .challenge}
 
 
-~~~
-# plot PCOA using Phyloseq package
-plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "month") + 
-  geom_point(size = 3)
-~~~
-{: .language-r}
 
-<img src="../img/05-pcoa-2.png" width="600px">
 
-The PCOA plot represents every samples as a dot, which is colored according to their sampling date (July in green, August in red and September in blue). First, this two-dimensional PCOA plot show 42% of the total variance between the samples. Then, we cannot clearly differentiate the sample harvested in the different dates neither on the first nor on the second axis. Indeed, the intra-variability between the samples harvested in July, August or September is similar to the inter-varibility between the months.
-
-~~~
-plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "site_month") + 
-  geom_point(size = 3)
-~~~
-{: .language-r}
-
-<img src="../img/05-pcoa-3.png" width="600px">
-
-The PCOA plot represents every samples as a dot, which is colored according to their sampling site and date. First, this two-dimensions PCOA plot show 42% of the total variance between the samples. Then, we can see that on both first and second axis, we can differenciate samples harvested in Cleron and in Parcey. We can also differenciate samples harvested in Parcey in July, August and September on both first and second axis. For the samples harvested in Cleron, we can only differenciate samples harvested in August and September on the second axis, which represent 20% of the total variance. Finally, we can see that the intra-variability between the samples harvested in Cleron is much lower than the intra-variability between the samples harvested in Parcey. This can be explained by the lowest difference among the three sampling dates in Cleron than for Parcey. So, we can clearly observe difference between the two sampling sites and differences among the three sampling dates, especially for samples harvested in Parcey.
   
 ## 4. Statistical test  
   
