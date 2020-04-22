@@ -13,8 +13,8 @@ keypoints:
 ---
   
 ## Table of Contents  
-- [1. Data filtering  ](#1-data-filtering)
-- [2. Normalization per sample  ](#2-normalization-per-sample)
+[1. Data filtering](#1-data-filtering)  
+[2. Normalization per sample](#2-normalization-per-sample)
   
   
 ## 1. Data filtering  
@@ -24,13 +24,15 @@ As microbiome data sets are usually sparse, it is important to filter the data s
 For example, we can filter variables (OTU/ASV) with very low number of counts in only a few samples, which are likely due to sequencing errors or low-level contaminations. In this example, we will keep OTU that have at least 2 counts in at least 11% of the samples. Indeed, we have here 18 samples and 3 replicates per treatment and we want, for example, to have at least 2 counts in at least two samples (2/18=0.111).  
   
 > ## Remark
->  First, data filtering should be applied on the raw data. Then, we are using here the phyloseq object: *data_phylo* because we are using a plyloseq function to filter 
+>  First, data filtering should be done on the raw data. Then, we are using here the phyloseq object: `data_phylo` because we are using a plyloseq function to filter 
 the raw data.  
 {: .callout}
   
 ~~~
-data_phylo_filt = filter_taxa(data_phylo, function(x) sum(x > 2) > (0.11 * length(x)), TRUE) # filter the OTU data using filter_taxa function included in phyloseq package
-data_otu_filt = data.frame(otu_table(data_phylo_filt)) # create a separated file
+# filter the OTU data using filter_taxa function included in phyloseq package
+data_phylo_filt = filter_taxa(data_phylo, function(x) sum(x > 2) > (0.11 * length(x)), TRUE) 
+
+data_otu_filt = data.frame(otu_table(data_phylo_filt)) 
 ~~~
 {: .language-r}   
   
@@ -79,18 +81,30 @@ Rarefy the data.
 set.seed(1782) # set seed for analysis reproducibility
 OTU_filt_rar = rarefy_even_depth(otu_table(data_phylo_filt), rngseed = TRUE, replace = FALSE) # rarefy the raw data using Phyloseq package
 data_otu_filt_rar = data.frame(otu_table(OTU_filt_rar)) # create a separated file
+
 data_phylo_filt_rar <- phyloseq(OTU_filt_rar, TAX, SAM) # create a phyloseq object
+data_phylo_filt_rar
 ~~~
 {: .language-r}
-  
-> ## Questions
-> What is the number of counts per sample for the rarfied data set?  
-> > ## Solutions
-> > 7750  
+
+This is what the `data_phylo_filt_rar` looks like.
+~~~
+phyloseq-class experiment-level object
+otu_table()   OTU Table:         [ 1381 taxa and 18 samples ]
+sample_data() Sample Data:       [ 18 samples by 3 sample variables ]
+tax_table()   Taxonomy Table:    [ 1381 taxa by 8 taxonomic ranks ]
+~~~
+{: .output}
+
+
+> ## Question
+> What is the number of counts per sample for the rarefied data set?  
+> > ## Solution
 > > ~~~
 > > rowSums(data_otu_filt_rar)
 > > ~~~
 > > {: .language-r}
+> > 7750  
 > {: .solution}
 {: .challenge}  
   
