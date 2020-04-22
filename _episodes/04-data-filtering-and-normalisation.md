@@ -37,23 +37,37 @@ data_otu_filt = data.frame(otu_table(data_phylo_filt))
 {: .language-r}   
   
 > ## Questions
-> How many zeros are present in the filtered OTU table?  
-> What is the percentage of zeros in the filtered OTU table?  
-> Plot the number of non zero values for each OTU (in the same way as for the nonfiltered data).  
+> 1. How many zeros are present in the filtered OTU table?  
+> 2. What is the percentage of zeros in the filtered OTU table?  
+> 3. Plot the number of non zero values for each OTU (in the same way as for the nonfiltered data).  
 > Interpret these results.  
 >
 > > ## Solutions
 > > ~~~
+> > # Q1
 > > sum(data_otu_filt == 0)
+> > 
+> > # Q2
 > > sum(data_otu_filt == 0) / (dim(data_otu_filt)[2] * dim(data_otu_filt)[1]) * 100 
-> > hist(as.matrix(data_otu_filt), max(data_otu_filt), right = FALSE, las = 1, xlab = "Occurrence value", ylab = "Frequency", main = "Occurrence frequency")
+> > 
+> > # Q3
+> > hist(as.matrix(data_otu_filt),   
+> >    max(data_otu_filt),   
+> >    right = FALSE,   
+> >    las = 1,   
+> >    xlab = "Occurrence value",   
+> >    ylab = "Frequency",   
+> >    main = "Occurrence frequency")  
+> > 
 > > min(colSums(data_otu_filt))
 > > non_zero<-0 * 1:dim(data_otu_filt)[2]
+> > 
 > > for (i in 1:dim(data_otu_filt)[2]){
 > >   non_zero[i]<-sum(data_otu_filt[,i] != 0)
 > >   }
 > > plot(non_zero, xlab = "OTU", ylab = "Frequency", main="Number of non zero values", las = 1)
-> > # You can see that we removed 3867 OTU, which were extremely rare and mostly found in only few samples. We decreased the number and percentage of zeros in our data set by removing these OTUs.  
+> > # You can see that we removed 3867 OTU, which were extremely rare and mostly found in only few samples.  
+> > # We decreased the number and percentage of zeros in our data set by removing these OTUs.  
 > > ~~~
 > >{: .language-r}
 > {: .solution}
