@@ -16,6 +16,20 @@ keypoints:
 [1. Data filtering](#1-data-filtering)  
 [2. Normalization per sample](#2-normalization-per-sample)
   
+~~~
+# Run this if you don't have these objects into your R environment
+data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
+data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header = TRUE)
+data_taxo <- read.table("data_loue_16S_nonnorm_taxo.txt", header = TRUE)
+
+OTU = otu_table(as.matrix(data_otu), taxa_are_rows = FALSE)              
+SAM = sample_data(data_grp, errorIfNULL = TRUE)                
+TAX = tax_table(as.matrix(data_taxo)) 
+data_phylo <- phyloseq(OTU, TAX, SAM) 
+~~~
+{: .language-r}
+
+
   
 ## 1. Data filtering  
   
