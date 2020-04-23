@@ -170,21 +170,23 @@ The test can be applied in combination with any distance measure. Here we use th
 First, we will test if there is any significant effect of the sampling site.  
 ~~~
 # Permanova test using the vegan package
-adonis(data_otu_filt_rar ~ site, data = data_grp, permutations = 9999, method = "bray") 
+metadata <- as(sample_data(data_phylo_filt_rar), "data.frame")
+adonis(distance(data_phylo_filt_rar, method="bray") ~ site,
+       data = metadata)
 ~~~
 {: .language-r}
 
 ~~~
 Call:
-adonis(formula = data_otu_filt_rar ~ site, data = data_grp, permutations = 9999, method = "bray") 
+adonis(formula = distance(data_phylo_filt_rar, method = "bray") ~      site, data = metadata) 
 
 Permutation: free
-Number of permutations: 9999
+Number of permutations: 999
 
 Terms added sequentially (first to last)
 
           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-site       1   0.63649 0.63649  5.6298 0.26028  1e-04 ***
+site       1   0.63649 0.63649  5.6298 0.26028  0.001 ***
 Residuals 16   1.80892 0.11306         0.73972           
 Total     17   2.44542                 1.00000           
 ---
@@ -207,7 +209,9 @@ The Total Sum of Squares is obtained from summing up all squared distances and d
 > 
 > > ## Solution
 > > ~~~
-> > adonis(data_otu_filt_rar ~ site * month, data = data_grp, permutations = 9999, method = "bray") 
+> > metadata <- as(sample_data(data_phylo_filt_rar), "data.frame")
+> > adonis(distance(data_phylo_filt_rar, method="bray") ~ site * month,
+> >        data = metadata) 
 > > ~~~
 > > {: .language-r}
 > > 
