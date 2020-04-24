@@ -296,6 +296,44 @@ We can observe that in August at Parcey, it seems to have more unclassified bact
 > {: .language-r}
 > 
 > However, here, you will plot all the samples independantly without pooling them according to the treatment.  
+> 
+> If you want to just create the OTU table including the sum of counts per treatment, please follow the code below:  
+> First, we will create a new data table including the grouping factors and the OTU occurrences.  
+> ~~~
+> data_grp_temp <- data_grp
+> data_grp_temp$sample_id <- rownames(data_grp_temp) # to be able to use the column later with dplyr
+> data_otu_filt_rar_temp <- data_otu_filt_rar
+> data_otu_filt_rar_temp$sample_id <- rownames(data_otu_filt_rar_temp) # to be able to use the column later with dplyr
+> data_otu_grp_filt_rar <- inner_join(data_grp_temp, data_otu_filt_rar_temp, by = "sample_id")
+> rm(data_grp_temp,data_otu_filt_rar_temp)
+> data_otu_grp_filt_rar[1:5, 1:7]
+> ~~~
+> {: .language-r}
+> 
+> Then, we will aggregate the new data table, data_otu_grp_filt_rar, by treatment. So, calculate the sum of the three replicates for each treatments:  
+> ~~~
+> # Calculate sum of counts per treatment
+> # Remark be carreful here to change the values 5 depending on the number of factor you have in your table
+> data_otu_filt_rar_site_month <- aggregate(data_otu_grp_filt_rar[, 5:dim(data_otu_grp_filt_rar)[2]], by=list(site_month=data_otu_grp_filt_rar$site_month), sum)
+> data_otu_filt_rar_site_month[, 1:7]
+> 
+> # Change the format to have table compatible for phyloseq
+> rownames(data_otu_filt_rar_site_month) <- data_otu_filt_rar_site_month$site_month
+> data_otu_filt_rar_site_month <- data_otu_filt_rar_site_month[,-1]
+> 
+> # Create a new phyloseq object
+> OTU = otu_table(as.matrix(data_otu_filt_rar_site_month), taxa_are_rows = FALSE)
+> TAX = tax_table(data_phylo_filt_rar)
+> data_phylo_filt_rar_site_month <- phyloseq(OTU, TAX)
+> data_phylo_filt_rar_site_month
+
+> # Plot the barplot
+> plot_bar(data_phylo_filt_rar_site_month, fill="Phylum") + 
+>   geom_bar(aes(color = Phylum, fill = Phylum), stat="identity", position="stack") +
+>   labs(x = "", y = "Relative Abundance\n") +
+>   theme(panel.background = element_blank())
+> ~~~
+> {: .language-r}
+> 
 {: .callout}
   
-
