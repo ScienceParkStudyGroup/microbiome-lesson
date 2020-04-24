@@ -328,7 +328,11 @@ We can observe that in August at Parcey, it seems to have more unclassified bact
 > TAX = tax_table(data_phylo_filt_rar)
 > data_phylo_filt_rar_site_month <- phyloseq(OTU, TAX)
 > data_phylo_filt_rar_site_month
+> ~~~
+> {: .language-r}
 > 
+> Finally, plot using phyloseq function:  
+> ~~~
 > # Plot the barplot
 > plot_bar(data_phylo_filt_rar_site_month, fill="Phylum") + 
 >   geom_bar(aes(color = Phylum, fill = Phylum), stat="identity", position="stack") +
