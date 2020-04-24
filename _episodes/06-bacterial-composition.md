@@ -298,6 +298,7 @@ We can observe that in August at Parcey, it seems to have more unclassified bact
 > However, here, you will plot all the samples independantly without pooling them according to the treatment.  
 > 
 > If you want to just create the OTU table including the sum of counts per treatment, please follow the code below:  
+> 
 > First, we will create a new data table including the grouping factors and the OTU occurrences.  
 > ~~~
 > data_grp_temp <- data_grp
@@ -317,26 +318,17 @@ We can observe that in August at Parcey, it seems to have more unclassified bact
 > data_otu_filt_rar_site_month <- aggregate(data_otu_grp_filt_rar[, 5:dim(data_otu_grp_filt_rar)[2]],
 >                                           by=list(site_month=data_otu_grp_filt_rar$site_month), sum)
 > data_otu_filt_rar_site_month[, 1:7]
-> ~~~
-> {: .language-r}
 > 
-> ~~~
 > # Change the format to have table compatible for phyloseq
 > rownames(data_otu_filt_rar_site_month) <- data_otu_filt_rar_site_month$site_month
 > data_otu_filt_rar_site_month <- data_otu_filt_rar_site_month[,-1]
-> ~~~
-> {: .language-r}
 > 
-> ~~~
 > # Create a new phyloseq object
 > OTU = otu_table(as.matrix(data_otu_filt_rar_site_month), taxa_are_rows = FALSE)
 > TAX = tax_table(data_phylo_filt_rar)
 > data_phylo_filt_rar_site_month <- phyloseq(OTU, TAX)
 > data_phylo_filt_rar_site_month
-> ~~~
-> {: .language-r}
 > 
-> ~~~
 > # Plot the barplot
 > plot_bar(data_phylo_filt_rar_site_month, fill="Phylum") + 
 >   geom_bar(aes(color = Phylum, fill = Phylum), stat="identity", position="stack") +
