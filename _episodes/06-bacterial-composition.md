@@ -284,3 +284,18 @@ We can observe that in August at Parcey, it seems to have more unclassified bact
 > {: .solution}
 {: .challenge}  
   
+  
+> ## Remark 
+> If you want to use phyloseq, you can you the following code:  
+> 
+> ~~~
+> plot_bar(data_phylo_filt_rar, fill="Phylum") + 
+>   labs(x = "", y = "Relative Abundance\n") +
+>   theme(panel.background = element_blank())
+> ~~~
+> {: .language-r}
+> 
+> However, here, you will plot all the samples independantly without pooling them according to the treatment.  
+{: .callout}
+  
+
