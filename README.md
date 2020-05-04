@@ -1,6 +1,6 @@
-# RNA-seq lesson
+# Microbiota data analysis
 
-This repository generates the RNA-seq lesson materials based on the website template from [The Carpentries](https://carpentries.org/) Foundation. 
+This repository generates the microbiota data analysis lesson materials based on the website template from [The Carpentries](https://carpentries.org/) Foundation. 
 
 ### Preview changes to the lesson locally
 The lesson website is built through Github and Jekyll. 
@@ -10,7 +10,7 @@ The detailed instructions are listed in the "Jekyll Setup for Lesson Development
 
 __Option 2:__ use a Docker container
 1. Open a Shell window. 
-2. Navigate to the `rna-seq-lesson/` folder using the `cd` command.
+2. Navigate to the `microbiome-lesson/` folder using the `cd` command.
 3. Since the lesson relies Jekyll 3.8.5, type within the Shell `export JEKYLL_VERSION=3.8.5`.
 4. Make sure you have Docker for Windows or Mac installed: https://docs.docker.com/install/
 5. With the Docker Desktop application running (you should see a little whale with containers at the top of your screen), type `docker run --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 -it jekyll/jekyll:$JEKYLL_VERSION jekyll serve`  
@@ -21,7 +21,7 @@ __Option 2:__ use a Docker container
 Current maintainers of this lesson are 
 
 * Marc Galland, Data analyst and manager (University of Amsterdam, SILS, Plant Physiology Department).
-* Tijs Bliek, research technician (University of Amsterdam, SILS, Plant Development and Epigenetics).
+* Anouk Zancarini, Assistant-Professor (University of Amsterdam, SILS, Plant Hormone Biology).
 
 ## Authors
 
@@ -32,7 +32,7 @@ A list of contributors to the lesson can be found in [AUTHORS](AUTHORS)
 To cite this lesson, please consult with [CITATION](CITATION)
 
 ## Credits
-This lesson is heavily based on teaching materials from the [Harvard Chan Bioinformatics Core (HBC) in-depth NGS data analysis course](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/). Materials have been adapted and some exercises created to comply with the [Carpentries Foundation teaching requirements](https://carpentries.github.io/instructor-training/).
+Materials have been adapted and some exercises created to comply with the [Carpentries Foundation teaching requirements](https://carpentries.github.io/instructor-training/).
 
 ## Contributing
 
