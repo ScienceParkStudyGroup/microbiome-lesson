@@ -333,8 +333,8 @@ plot(non_zero, xlab = "OTU", ylab = "Frequency", main = "Number of non zero valu
    
 ### 5.2. Sequencing depth  
   
-Sequencing depth and library size represent the number of counts per sample. This number can vary a lot among the different samples, usually up to 10 fold between some samples and it is especially due to several technical biais. Some of these biais are explained below.  
-After extracting the DNA from each sample independently, the biologist measures the DNA concentration for each sample. First, the sensitivity of the technique used to measure DNA concentration is not always very hight. Then, according to this concentration, the biologist pools the different samples in one equimolar mix using pipette, which add also some error. Moreover, the PCR amplification step can also add some difference among samples because PCR amplification can be more/less efficient according to the sequence itself.  
+Sequencing depth and library size represent the number of counts per sample. This number can vary a lot among the different samples, usually up to 10 fold between some samples and it is especially due to several technical biases. Some of these biases are explained below.  
+After extracting the DNA from each sample independently, the biologist measures the DNA concentration for each sample. First, the sensitivity of the technique used to measure DNA concentration is not always very high. Then, according to this concentration, the biologist pools the different samples in one equimolar mix using pipette, which add also some error. Moreover, the PCR amplification step can also add some difference among samples because PCR amplification can be more/less efficient according to the sequence itself.  
   
 > ## Question 
 > Why do you think that it is important to look for sequencing depth?  
