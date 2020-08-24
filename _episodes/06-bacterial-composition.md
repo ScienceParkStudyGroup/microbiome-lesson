@@ -36,7 +36,7 @@ library(phyloseq)
 library(tidyverse)
 
 data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
-data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header = TRUE)
+data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header=TRUE, stringsAsFactors = TRUE)
 data_taxo <- read.table("data_loue_16S_nonnorm_taxo.txt", header = TRUE)
 
 OTU = otu_table(as.matrix(data_otu), taxa_are_rows = FALSE)              
