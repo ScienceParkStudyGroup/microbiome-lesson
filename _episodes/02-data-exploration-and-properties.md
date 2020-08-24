@@ -36,7 +36,7 @@ keypoints:
 # install.packages("agricolae")
 # install.packages("FSA")
 # install.packages("rcompanion")
-# BiocManager::install('phyloseq', version = '3.10', update = FALSE) # this package comes from Bioconductor  
+# BiocManager::install('phyloseq') # this package comes from Bioconductor  
 
 library(vegan)
 library(phyloseq)
