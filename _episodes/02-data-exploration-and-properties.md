@@ -428,15 +428,12 @@ max(sum_seq)
 
 > ## Questions 
 > 1. How do you interpret these results?  
-> 2. Do you observe similar results on the filtered data set?  
-> 3. Do you think it is an issue to have variation in the library size?  
+> 2. Do you think it is an issue to have variation in the library size?  
 >
 > > ## Solutions:
 > > 1. We can see that there is differences in the library size for the different samples. The library size go from around 9000 reads to a
 > > bit more of 20000 reads (more than 2 fold change).  
-> > 2. If you look at the filtered data, you can see similar result, the filtering  does not change library size so much because you just
-> > removed few OTU that were rare.  
-> > 3. Of course if you want to compare samples to each other, it will be an issue to have different library sizes. For example, if you 
+> > 2. Of course if you want to compare samples to each other, it will be an issue to have different library sizes. For example, if you 
 > > have a sample 1 with 1000 reads (500 reads for OTU1, 300 reads for OTU 2 and 200 reads for OTU 3) and a sample 2 with only 100 reads 
 > > (50 reads for OTU1, 30 reads for OTU 2 and 20 reads for OTU 3). If you are comparing the two samples without correcting for the 
 > > library size, you will say that sample 2 as 10 times less OTU 1, 2 and 3 than the sample 1, while it is just due to the difference in 
