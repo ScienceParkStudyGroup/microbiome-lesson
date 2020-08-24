@@ -54,7 +54,7 @@ library(rcompanion)
 
 ~~~
 data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
-data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header = TRUE)
+data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header=TRUE, stringsAsFactors = TRUE)
 data_taxo <- read.table("data_loue_16S_nonnorm_taxo.txt", header = TRUE)
 ~~~
 {: .language-r}
