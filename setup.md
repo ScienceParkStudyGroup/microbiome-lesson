@@ -58,12 +58,13 @@ This is the second way to install softwares and packages. It _should_ work but t
 > # The most recent version of the package will be installed 
 > install.packages("tidyverse")
 > install.packages("vegan")
-> install.packages("pheatmap")
 > install.packages("ade4")
-> install.packages("multcomp")
 > install.packages("patchwork")
 > install.packages("agricolae")
+> install.packages("FSA")  
+> install.packages("rcompanion")  
 > install.packages("BiocManager")
+
 >
 > # this package comes from Bioconductor 	 
 > BiocManager::install('phyloseq')
