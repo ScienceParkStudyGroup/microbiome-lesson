@@ -30,13 +30,13 @@ keypoints:
 
 ~~~
 # install the following packages only if you need to
-# install.packages("vegan")
-# install.packages("phyloseq")
+# install.packages("vegan")  
 # install.packages("tidyverse")
 # install.packages("patchwork")
 # install.packages("agricolae")
 # install.packages("FSA")
 # install.packages("rcompanion")
+# BiocManager::install('phyloseq', version = '3.10', update = FALSE) # this package comes from Bioconductor  
 
 library(vegan)
 library(phyloseq)
