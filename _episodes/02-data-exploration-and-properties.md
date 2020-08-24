@@ -273,10 +273,10 @@ hist(as.matrix(data_otu),
 {: .callout}   
   
   
-#### 5.1.3. Minimum of counts per OTU for all the samples  
+#### 5.1.3. Minimum total count overall samples per OTU  
   
 > ## Question
-> What is the minimum number of counts per OTU for all the samples in this data set?
+> What is the minimum total count overall samples per OTU in this data set?
 > > ## Solution
 > > `min(colSums(data_otu))`
 > {: .solution}
