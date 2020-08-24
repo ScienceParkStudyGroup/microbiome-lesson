@@ -66,7 +66,7 @@ This is the second way to install softwares and packages. It _should_ work but t
 > install.packages("BiocManager")
 >
 > # this package comes from Bioconductor 	 
-> BiocManager::install('phyloseq', version = '3.10', update = FALSE)
+> BiocManager::install('phyloseq')
 > ~~~
 > {: .language-r}
 {: .prereq}
