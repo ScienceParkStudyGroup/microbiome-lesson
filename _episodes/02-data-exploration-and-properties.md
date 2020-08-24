@@ -269,14 +269,14 @@ hist(as.matrix(data_otu),
 {: .challenge}
 
 > ## Remark 
-> One option for data fitering could be to remove OTUs that have a number of counts for all the samples lower than a define value.   
+> One option for data fitering could be to remove OTUs that have a total count over all samples per OTU lower than a define value.   
 {: .callout}   
   
   
-#### 5.1.3. Minimum total count overall samples per OTU  
+#### 5.1.3. Minimum total count over all samples per OTU  
   
 > ## Question
-> What is the minimum total count overall samples per OTU in this data set?
+> What is the minimum total count over all samples per OTU in this data set?
 > > ## Solution
 > > `min(colSums(data_otu))`
 > {: .solution}
