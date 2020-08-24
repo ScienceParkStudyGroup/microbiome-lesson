@@ -269,7 +269,7 @@ hist(as.matrix(data_otu),
 {: .challenge}
 
 > ## Remark 
-> One option for data fitering could be to remove OTUs that have a total count over all samples per OTU lower than a define value.   
+> One option for data fitering could be to remove OTUs that have a total count over all samples per OTU lower than a defined value.   
 {: .callout}   
   
   
