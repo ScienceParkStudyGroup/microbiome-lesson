@@ -427,7 +427,7 @@ max(sum_seq)
 {: .output}
 
 > ## Questions 
-> 1. How do you interpret this plot?  
+> 1. How do you interpret these results?  
 > 2. Do you observe similar results on the filtered data set?  
 > 3. Do you think it is an issue to have variation in the library size?  
 >
