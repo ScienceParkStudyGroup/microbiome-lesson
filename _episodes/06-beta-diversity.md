@@ -134,7 +134,7 @@ plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "site") +
 {: .challenge}
 
 > ## Exercise
-> Represent, now the samples according to their sampling sites and dates. Interpret the corresponding plots.  
+> If you have more than one factor, such as in this example, it is better to represent all the different treatments. Represent, now the samples according to their sampling sites and dates. Interpret the corresponding plots.  
 >
 > > ## Solution
 > > ~~~
@@ -205,7 +205,7 @@ The Total Sum of Squares is obtained from summing up all squared distances and d
 {: .challenge} 
   
 > ## Question
-> Test the effect of the sampling site, the sampling date and their interaction on the bacterial community beta-diversity.  
+> Test the effect of the sampling site, the sampling date and their interaction on the bacterial community beta-diversity and interpret the results obtained.  
 > 
 > > ## Solution
 > > ~~~
