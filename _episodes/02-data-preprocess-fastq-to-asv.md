@@ -3,17 +3,15 @@ title: "Data preprocessing: from fastq to ASV"
 teaching: 60
 exercises: 30
 questions:
-- Which packages do I need for the analyses?  
-- How can I import my data in R?  
-- What do the data sets look like?  
-- What are the properties for the occurrence table?  
+- How can I go from fasta files to ASV data?  
 objectives:
-- Install and load the required packages in R  
-- Import the data sets  
-- Create a phyloseq object  
-- Explore the data sets  
-- Assess sparsity of the occurrence table  
-- Assess sequencing depth  
+- Check the reads' quality  
+- Trim and filter the fasta files  
+- Denoise the data  
+- Merge the forward and reverse reads  
+- Create an ASV table  
+- Remove chimeras  
+- Assign taxonomic affiliation for each ASV  
 keypoints:
 - ""
 ---
