@@ -211,7 +211,7 @@ data_evenness 0.4452549 0.5176397    0.9609561     1.0000000
 {: .challenge}
 
   
-We will now plot the samples according to their harvesting sites and time points at the same time.  
+If you have more than one factor, such as in this example, it is better to study the effect of all factors and their interactions. We will now plot the samples according to their harvesting sites and time points at the same time.  
   
 **Richness plot.**  
 ~~~
@@ -310,26 +310,23 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ~~~
 {: .output}
 
-And then the effect of the sampling date on the Shannon index also with a one-factor ANOVA test. 
-~~~
-aov_test <- aov(data_shannon ~ month, data = data_alphadiv)  
-summary(aov_test)  
-~~~
-{: .language-r}
-
-
-~~~
-            Df Sum Sq Mean Sq F value Pr(>F)  
-month        2  0.885  0.4425   4.701  0.026 *
-Residuals   15  1.412  0.0941                 
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-~~~
-{: .output}
-  
 We can interpret the results as following:    
   - There is no significant effect of the sampling site: Pr(>F) = 0.0821 (P-value > 0.05)  
-  - There is a significant effect of the sampling date: Pr(>F) = 0.026 (P-value < 0.05)  
+
+
+> ## Exercise
+> Test the effect of the sampling date on the Shannon index using a one-factor ANOVA test.  
+> 
+> > ## Solution  
+> > ~~~~
+> > aov_test <- aov(data_shannon ~ month, data = data_alphadiv)  
+> > summary(aov_test)
+> > ~~~
+> > {: .language-r}
+> > We can interpret the results as following:    
+> > - There is a significant effect of the sampling date: Pr(>F) = 0.026 (P-value < 0.05)
+> {: .solution}
+{: .challenge} 
   
 Now, we know that that there is significant difference between the sampling dates but we don't know which sampling date is significantly different from the others. Indeed, if we had only two levels (such as for the sites), we could automatically say that date 1 is significantly different from date 2 but we have here three levels (*e.g.* July, August and September).  
 
@@ -359,10 +356,10 @@ We can interpret the results as following:
   
 > ## Remark
 > When we test the effect of the sampling date, the samples from the two sites are pooled together. Looking at the boxplot you did before (including sampling site and date information), you can clearly see that the samples harvested in Cleron in July and in September seems different, such as the samples harvested in Parcey. However, pooling both sites together makes them not different.  
-In this case, you can suspect a significant effect of sampling date for a define site, of the sampling site for a define date, and an effect of the interaction between the sampling site and the sampling date. We should test the effects of the sampling site, the sampling date and their interaction in one test, such as a two-way ANOVA.  
+In this case, you can suspect a significant effect of sampling date for a defined site, of the sampling site for a define date, and an effect of the interaction between the sampling site and the sampling date. We should test the effects of the sampling site, the sampling date and their interaction in one test, such as a two-way ANOVA.  
 {: .callout}
   
-We will test the effect of the sampling site, the sampling date and their interaction on the richness using two-factor ANOVA tests.  
+If you have more than one factor, such as in this example, it is better to study the effect of all factors and their interactions. We will test the effect of the sampling site, the sampling date and their interaction on the Shannon index using two-factor ANOVA tests.  
 ~~~
 summary(aov(data_shannon ~ site * month, data = data_alphadiv))
 ~~~
