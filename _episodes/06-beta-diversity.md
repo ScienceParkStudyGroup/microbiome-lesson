@@ -170,9 +170,7 @@ The test can be applied in combination with any distance measure. Here we use th
 First, we will test if there is any significant effect of the sampling site.  
 ~~~
 # Permanova test using the vegan package
-metadata <- as(sample_data(data_phylo_filt_rar), "data.frame")
-adonis(distance(data_phylo_filt_rar, method="bray") ~ site,
-       data = metadata)
+adonis(data_otu_filt_rar~site,data=data_grp, permutations=9999, method="bray")
 ~~~
 {: .language-r}
 
@@ -209,9 +207,7 @@ The Total Sum of Squares is obtained from summing up all squared distances and d
 > 
 > > ## Solution
 > > ~~~
-> > metadata <- as(sample_data(data_phylo_filt_rar), "data.frame")
-> > adonis(distance(data_phylo_filt_rar, method="bray") ~ site * month,
-> >        data = metadata) 
+> > adonis(data_otu_filt_rar~site * month,data=data_grp, permutations=9999, method="bray")
 > > ~~~
 > > {: .language-r}
 > > 
