@@ -36,6 +36,15 @@ Distances metrics are between 0 and 1: 0 means identical communities in both sam
 
 
 ~~~
+# Load the required packages
+library(vegan)
+library(phyloseq)
+library(tidyverse)
+library(patchwork)
+library(agricolae)
+library(FSA)
+library(rcompanion)
+
 # Run this if you don't have these objects into your R environment
 data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
 data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header=TRUE, stringsAsFactors = TRUE)
