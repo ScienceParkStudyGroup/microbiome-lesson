@@ -22,20 +22,6 @@ keypoints:
 4. [Statistical analyses](#4-statistical-analyses)
   
   
-## Load the required packages  
-
-~~~
-library(vegan)
-library(phyloseq)
-library(tidyverse)
-library(patchwork)
-library(agricolae)
-library(FSA)
-library(rcompanion)
-~~~
-{: .language-r}
-  
-  
 ## 1. Definitions and important information   
 Alpha-diversity represents diversity within an ecosystem or a sample, in other words, what is there and how much is there in term of species. However, it is not easy to define a species and we can calculate alpha-diversity at different taxonomic levels.  
 In this tutorial, we are looking at the OTU level (clustered at 97% similarity thresholds).  
@@ -54,6 +40,15 @@ Moreover, we usually not using normalized data because we want to assess the div
 {: .callout}
   
 ~~~
+# Load the required packages
+library(vegan)
+library(phyloseq)
+library(tidyverse)
+library(patchwork)
+library(agricolae)
+library(FSA)
+library(rcompanion)
+
 # Run this if you don't have these objects into your R environment
 data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
 data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header=TRUE, stringsAsFactors = TRUE)
