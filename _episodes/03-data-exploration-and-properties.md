@@ -326,7 +326,7 @@ plot(non_zero, xlab = "OTU", ylab = "Frequency", main = "Number of non zero valu
 > Remember that, here, the number of replicates per treatment is 3 per site and per harvesting date, 6 per harvesting date, 
 > and 9 per site.  
 > We can think about different ways to filter the OTU data. For example, here, we can think about removing rare OTU that are 
-> not shared with less than 2 or 3 samples. Try to think about how you can filter your OTU data.  
+> not shared with at least 2 or 3 samples. Try to think about how you can filter your OTU data.  
 {: .callout}
   
   
