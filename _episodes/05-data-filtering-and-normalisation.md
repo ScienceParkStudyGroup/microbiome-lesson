@@ -17,6 +17,15 @@ keypoints:
 [2. Normalization per sample](#2-normalization-per-sample)
   
 ~~~
+# Load the required packages
+library(vegan)
+library(phyloseq)
+library(tidyverse)
+library(patchwork)
+library(agricolae)
+library(FSA)
+library(rcompanion)
+
 # Run this if you don't have these objects into your R environment
 data_otu <- read.table("data_loue_16S_nonnorm.txt", header = TRUE)
 data_grp <- read.table("data_loue_16S_nonnorm_grp.txt", header=TRUE, stringsAsFactors = TRUE)
