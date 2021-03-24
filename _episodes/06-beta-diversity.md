@@ -116,7 +116,7 @@ plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "site") +
 > What can you say about intra- and inter-variability among the two groups?  
 > > ## Solution 
 > > The PCOA plot represents every samples as a dot, which is colored according to their sampling site (Cleron in red and Parcey in blue). 
-> > First, this two-dimensions PCOA plot show 42% of the total variance between the samples.   
+> > First, this two-dimensions PCOA plot show 52% of the total variance between the samples.   
 > Then, we can see that on both first and second axis, we can differenciate samples harvested in Cleron and in Parcey.   
 > > Finally, we can see that the intra-variability between the samples harvested in Cleron is much lower than the intra-variability between the samples harvested in 
 > > Parcey. However, we can still observe two distinct groups for the samples harvested in the two sites, so the intra-variability within a site in lower than the 
@@ -137,7 +137,7 @@ plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "site") +
 > > 
 > > <img src="../img/05-pcoa-2.png" width="600px">
 > > 
-> > The PCOA plot represents every samples as a dot, which is colored according to their sampling date (July in green, August in red and September in blue). First, this two-dimensional PCOA plot show 42% of the total variance between the samples. Then, we cannot clearly differentiate the sample harvested in the different dates neither on the first nor on the second axis. Indeed, the intra-variability between the samples harvested in July, August or September is similar to the inter-varibility between the months.  
+> > The PCOA plot represents every samples as a dot, which is colored according to their sampling date (July in green, August in red and September in blue). First, this two-dimensional PCOA plot show 52% of the total variance between the samples. Then, we cannot clearly differentiate the sample harvested in the different dates neither on the first nor on the second axis. Indeed, the intra-variability between the samples harvested in July, August or September is similar to the inter-varibility between the months.  
 > > 
 > {: .solution}
 {: .challenge}
@@ -154,7 +154,7 @@ plot_ordination(data_phylo_filt_rar, pcoa_bc, color = "site") +
 > > {: .language-r}
 > > 
 > > The PCOA plot represents every samples as a dot, which is colored according to their sampling site and date.  
-> > First, this two-dimensions PCOA plot show 42% of the total variance between the samples.  
+> > First, this two-dimensions PCOA plot show 52% of the total variance between the samples.  
 > > Then, we can see that on both first and second axis, we can differenciate samples harvested in Cleron and in Parcey.  
 > > We can also differenciate samples harvested in Parcey in July, August and September on both first and second axis.  
 > > For the samples harvested in Cleron, we can only differenciate samples harvested in August and September on the second axis, which represent 20% of the total variance.  
