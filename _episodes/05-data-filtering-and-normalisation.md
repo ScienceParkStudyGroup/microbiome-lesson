@@ -145,3 +145,12 @@ tax_table()   Taxonomy Table:    [ 1381 taxa by 8 taxonomic ranks ]
 > {: .solution}
 {: .challenge}  
   
+
+> ## Remark 
+> If you perfer to normalise the data using the total sum normalisation, you can use the following script:  
+> ~~~
+> data_phylo_filt_tsn <- transform_sample_counts(data_phylo_filt, function(ASV) ASV/sum(ASV) *100 )
+> ~~~
+> {: .language-r}
+ {: .callout}
+
