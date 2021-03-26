@@ -135,6 +135,20 @@ There are __18 samples__ and __5248 variables__.
 {: .callout}
   
   
+Let's check how many total sequences/reads there are in the OTU table.  
+~~~
+sum(data_otu)
+~~~
+{: .language-r}
+
+~~~
+[1] 245239
+~~~
+{: .output}
+
+There are n total __245239 sequences/reads__.  
+  
+  
 ### 4.2. Sample metadata table  
 Based on `data_grp` table or `SAM` from `data_phylo` object. This table represents the metadata information on the different samples.  
 
