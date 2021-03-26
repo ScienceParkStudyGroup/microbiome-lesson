@@ -70,11 +70,8 @@ dim(data_otu_filt)
 ~~~
 {: .output}
 
-There are still __18 samples__ and there are now __1381 variables__. 
-
-> ## Remark
-> The non filtered OTU table has 5248 variables/features/OTU, so we removed here 3867 variables/features/OTU, representing almost 74% of the features.  
-{: .callout}
+There are still __18 samples__ and there are now __1381 variables__.  
+The non filtered OTU table has 5248 variables/features/OTU, so we removed here 3867 variables/features/OTU, representing almost 74% of the features.  
  
 > ## Questions
 > How many sequences/reads did we remove here fitering the OTU table?
