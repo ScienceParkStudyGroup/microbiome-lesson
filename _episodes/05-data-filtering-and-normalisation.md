@@ -58,7 +58,44 @@ data_phylo_filt = filter_taxa(data_phylo, function(x) sum(x > 2) > (0.11 * lengt
 data_otu_filt = data.frame(otu_table(data_phylo_filt)) 
 ~~~
 {: .language-r}   
-  
+
+Let's check what are the dimensions of the filtered OTU table.
+~~~
+dim(data_otu_filt)
+~~~
+{: .language-r}
+
+~~~
+[1]   18 1381
+~~~
+{: .output}
+
+There are still __18 samples__ and there are now __1381 variables__. 
+
+> ## Remark
+> The non filtered OTU table has 5248 variables/features/OTU, so we removed here 3867 variables/features/OTU, representing almost 74% of the features.  
+{: .callout}
+ 
+> ## Questions
+> How many sequences/reads did we remove here fitering the OTU table?
+>
+> > ## Solutions
+> > ~~~
+> > # Total number of sequences/reads in the filtered data
+> > sum(data_otu_filt)
+> > # 229386
+> > # Percentage of sequences/reads removed during filtering step
+> > ((sum(data_otu)-sum(data_otu_filt))/sum(data_otu))*100
+> > # 6.464306 %
+> > ~~~
+> >{: .language-r}
+> {: .solution}
+{: .challenge}  
+
+> ## Remark
+> Therefore filtering the OTU table, we removed here almost 74% of the features/OTU but less than 6.5% of the total sequences/reads.  
+{: .callout}
+
 > ## Questions
 > 1. How many zeros are present in the filtered OTU table?  
 > 2. What is the percentage of zeros in the filtered OTU table?  
