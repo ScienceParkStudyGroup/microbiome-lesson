@@ -135,7 +135,7 @@ There are __18 samples__ and __5248 variables__.
 {: .callout}
   
   
-Let's check how many total sequences/reads there are in the OTU table.  
+Now, let's check how many total sequences/reads there are in the OTU table.  
 ~~~
 sum(data_otu)
 ~~~
@@ -146,7 +146,7 @@ sum(data_otu)
 ~~~
 {: .output}
 
-There are n total __245239 sequences/reads__.  
+In total, there are __245239__ sequences/reads.  
   
   
 ### 4.2. Sample metadata table  
